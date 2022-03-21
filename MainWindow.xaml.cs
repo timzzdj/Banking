@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*********************************************************************/
+/* Author: Timothy de Jesus                                          */
+/* Project #: 05                                                     */
+/* Teacher: Mr. Michael Plain                                        */
+/* Purpose: The purpose for this project is to use an abstract class */
+/*          and inheritance to create various types of accounts that */
+/*          inherit from a base account class.                       */
+/*********************************************************************/
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
