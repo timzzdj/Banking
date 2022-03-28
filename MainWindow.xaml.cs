@@ -6,9 +6,6 @@
 /*          and inheritance to create various types of accounts that */
 /*          inherit from a base account class.                       */
 /*********************************************************************/
-
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
