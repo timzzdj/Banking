@@ -9,9 +9,13 @@ namespace Project05
     internal class Bank
     {
         // Fields
-        private string bank_name;
-        private string bank_address;
-        private int bank_phone_number;
+        public string bank_name;
+        public string bank_address;
+        public int bank_phone_number;
         private static void ListCustomers() { var customers = new List<Customer>(); }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

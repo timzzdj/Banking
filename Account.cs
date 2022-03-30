@@ -16,6 +16,7 @@ namespace Project05
         private string account_type;
         private double annual_percentage_rate;
         // Constructor
+        public Account() { }
         public Account(int acc_num, string acc_type, double annual_percent_rate)
         {
             account_number = acc_num;
@@ -30,11 +31,11 @@ namespace Project05
         {
             get => "Bank Account";
         }
-        public abstract double StartingBalance { get; }
-        public abstract double EndingBalance { get; }
-        public override string ToString()
+       // public abstract double StartingBalance { get; }
+      //  public abstract double EndingBalance { get; }
+      /*  public override string ToString()
         {
             return $"";
-        }
+        } */
     }
 }

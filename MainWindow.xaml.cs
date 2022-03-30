@@ -31,18 +31,36 @@ namespace Project05
         public MainWindow()
         {
             InitializeComponent();
+            loadCustomerButtons();
         }
 
         private void btnEnterBank_Click(object sender, RoutedEventArgs e)
         {
             loadCustomerAccounts();
+            txtCustomer_Details.Visibility = Visibility.Visible;
+            btnExit_Bank.Visibility = Visibility.Visible;
+            btnEnterBank.Visibility = Visibility.Hidden;
         }
         public void loadCustomerAccounts()
         {
-            var new_account = new List<Customer>()
+            var new_customer = new List<Customer>
             {
-                new Customer(){ customer_name = "Timothy de Jesus", customer_address = "250 Brent Ln. Pensacola, Fl", customer_phone_number = 123456789 }
+                new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, Fl", 123456789)
             };
+            txtCustomer_Details.Text = new_customer[0].ToString();
+        }
+
+        private void btnExit_Bank_Click(object sender, RoutedEventArgs e)
+        {
+            txtCustomer_Details.Visibility = Visibility.Hidden;
+            btnExit_Bank.Visibility = Visibility.Hidden;
+            btnEnterBank.Visibility = Visibility.Visible;
+        }
+        public void loadCustomerButtons()
+        {
+            txtCustomer_Details.Visibility = Visibility.Hidden;
+            btnExit_Bank.Visibility = Visibility.Hidden;
+            btnEnterBank.Visibility = Visibility.Visible;
         }
     }
 }
