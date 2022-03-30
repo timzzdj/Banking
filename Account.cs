@@ -12,9 +12,9 @@ namespace Project05
         public const double ANNUAL_RATE = 0.1225;
 
         // Fields
-        public int account_number;
-        public string account_type;
-        public double annual_percentage_rate;
+        private int account_number;
+        private string account_type;
+        private double annual_percentage_rate;
         // Constructor
         public Account(int acc_num, string acc_type, double annual_percent_rate)
         {

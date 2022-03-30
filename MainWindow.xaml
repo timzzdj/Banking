@@ -6,7 +6,20 @@
         xmlns:local="clr-namespace:Project05"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Grid x:Name="Main_Grid" Background="#FFEDFFE6">
+        <Image x:Name="Bank_Logo" HorizontalAlignment="Left" Height="230" VerticalAlignment="Top" Width="327" Source="/bank6.jpg"/>
+        <Label x:Name="lblWelcom_msg1" Content="Welcome" HorizontalAlignment="Left" Margin="201,226,0,0" VerticalAlignment="Top" Height="25" Width="85" FontWeight="Bold" FontFamily="Arial" FontSize="16"/>
+        <Label x:Name="lblWelcom_msg2" Content="To the Bank of Ruptcy" HorizontalAlignment="Left" Margin="200,135,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" FontFamily="Arial" FontSize="16">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-91.033"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Button x:Name="btnEnterBank" Content="Enter Bank" HorizontalAlignment="Left" Margin="389,0,0,0" VerticalAlignment="Center" Height="26" Width="86" Click="btnEnterBank_Click"/>
 
     </Grid>
 </Window>

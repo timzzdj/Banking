@@ -12,6 +12,6 @@ namespace Project05
         private string bank_name;
         private string bank_address;
         private int bank_phone_number;
-        private static void ListCustomers() { var bank = new List<Customer>(); }
+        private static void ListCustomers() { var customers = new List<Customer>(); }
     }
 }

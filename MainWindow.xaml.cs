@@ -32,5 +32,17 @@ namespace Project05
         {
             InitializeComponent();
         }
+
+        private void btnEnterBank_Click(object sender, RoutedEventArgs e)
+        {
+            loadCustomerAccounts();
+        }
+        public void loadCustomerAccounts()
+        {
+            var new_account = new List<Customer>()
+            {
+                new Customer(){ customer_name = "Timothy de Jesus", customer_address = "250 Brent Ln. Pensacola, Fl", customer_phone_number = 123456789 }
+            };
+        }
     }
 }
