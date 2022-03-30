@@ -28,6 +28,7 @@ namespace Project05
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +49,13 @@ namespace Project05
                 new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, Fl", 123456789)
             };
             txtCustomer_Details.Text = new_customer[0].ToString();
+        }
+        public void loadBank()
+        {
+            var new_bank = new List<Bank>
+            {
+                new Bank("Bank of Ruptcy", "888 Bank Blvd. Pensacola, FL.", 0987654321)
+            };
         }
 
         private void btnExit_Bank_Click(object sender, RoutedEventArgs e)

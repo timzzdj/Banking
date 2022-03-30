@@ -15,6 +15,7 @@ namespace Project05
         private int account_number;
         private string account_type;
         private double annual_percentage_rate;
+
         // Constructor
         public Account() { }
         public Account(int acc_num, string acc_type, double annual_percent_rate)
