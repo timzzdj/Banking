@@ -67,6 +67,10 @@ namespace Project05
                 throw new ArgumentOutOfRangeException("An error occurred, please exit the bank.", aRe);
             }
         }
+        public void loadAccounts()
+        {
+            
+        }
 
         protected void customer_button_Click(object sender, RoutedEventArgs e)
         {
@@ -94,6 +98,7 @@ namespace Project05
         private void btnExit_Bank_Click(object sender, RoutedEventArgs e)
         {
             btnEnterBank.Visibility = Visibility.Visible;
+            btnReturnView.Visibility = Visibility.Hidden;
             loadCustomerView();
         }
 
@@ -121,6 +126,7 @@ namespace Project05
                 lblWelcome_msg1.Visibility = Visibility.Hidden;
                 lblWelcome_msg2.Visibility = Visibility.Hidden;
                 grdCustomerButtons.Visibility = Visibility.Hidden;
+                grdAccountTabs.Visibility = Visibility.Hidden;
             }
             else if(btnReturnView.Visibility == Visibility.Visible)
             {
@@ -129,6 +135,7 @@ namespace Project05
                 btnShowAccounts.Visibility = Visibility.Hidden;
                 grdCustomerButtons.Visibility = Visibility.Hidden;
                 btnExit_Bank.Visibility = Visibility.Visible;
+                grdAccountTabs.Visibility = Visibility.Visible;
             }
             else
             {
@@ -137,6 +144,7 @@ namespace Project05
                 lblWelcome_msg1.Visibility = Visibility.Visible;
                 lblWelcome_msg2.Visibility = Visibility.Visible;
                 grdCustomerButtons.Visibility = Visibility.Visible;
+                grdAccountTabs.Visibility = Visibility.Hidden;
             }
         }
     }
