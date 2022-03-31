@@ -12,21 +12,23 @@ namespace Project05
         public string bank_name;
         public string bank_address;
         public int bank_phone_number;
-        private List<Customer> customerList;
+        public static List<Customer> customerList;
         public Bank(string bankName, string bankAddress, int bankPhoneNumber)
         {
             bank_name = bankName;
-            var customerList = new List<Customer>();
+            bank_address = bankAddress;
+            bank_phone_number = bankPhoneNumber;
+            customerList = new List<Customer>();
         }
       //  private static void ListCustomers() { var customers = new List<Customer>(); }
-        public void addCustomer(Customer bankCustomer)
+        public static void AddCustomer(Customer bankCustomer)
         {
             customerList.Add(bankCustomer);
             return;
         }
         public override string ToString()
         {
-            return $"{bank_name}, {bank_address}, {bank_phone_number}, {customerList}";
+            return $"\t\tWelcome to {bank_name}\nWe are located in {bank_address}\nCall us at: {bank_phone_number}\nHere is a list of our customers:";
         }
     }
 }
