@@ -8,20 +8,22 @@ namespace Project05
 {
     internal class Customer
     {
+        // Fields
         public string customer_name;
         public string customer_address;
         public int customer_phone_number;
         private List<Account> accountList;
-       // private static void ListAccounts() { var accounts = new List<Account>(); }
+        // Constructors Default/Non-default
         public Customer() { }
         public Customer(string cus_name, string cus_addr, int cus_phone_num)
         {
             customer_name = cus_name;
             customer_address = cus_addr;
             customer_phone_number = cus_phone_num;
-            var accountList = new List<Account>();
+            accountList = new List<Account>();
         }
-        public void addAccount(Account customerAccount)
+        // Methods
+        public void AddAccount(Account customerAccount)
         {
             accountList.Add(customerAccount);
             return;

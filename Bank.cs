@@ -13,6 +13,9 @@ namespace Project05
         public string bank_address;
         public int bank_phone_number;
         public static List<Customer> customerList;
+
+        // Constructors Default/Non-default
+        public Bank() { }
         public Bank(string bankName, string bankAddress, int bankPhoneNumber)
         {
             bank_name = bankName;
@@ -20,7 +23,8 @@ namespace Project05
             bank_phone_number = bankPhoneNumber;
             customerList = new List<Customer>();
         }
-      //  private static void ListCustomers() { var customers = new List<Customer>(); }
+
+        // Methods
         public static void AddCustomer(Customer bankCustomer)
         {
             customerList.Add(bankCustomer);

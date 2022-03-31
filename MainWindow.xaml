@@ -24,8 +24,10 @@
             <TextBox x:Name="txtCustomer_Details" HorizontalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="455" Height="79" IsReadOnly="True" FontWeight="Bold" FontFamily="Courier New" FontSize="14"/>
             <TextBox x:Name="txtBank_Name" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="437" Height="71" IsReadOnly="True" FontFamily="Courier New" FontSize="14" FontWeight="Bold"/>
             <Grid x:Name="grdCustomerButtons" Margin="121,86,121,304"/>
+            <Button x:Name="btnShowAccounts" Content="Show Accounts" HorizontalAlignment="Center" Margin="0,232,0,0" VerticalAlignment="Top" Height="27" Width="128" Click="btnShowAccounts_Click"/>
         </Grid>
         <Button x:Name="btnExit_Bank" Content="Exit Bank" HorizontalAlignment="Left" Margin="79,323,0,0" VerticalAlignment="Top" Height="49" Width="125" Click="btnExit_Bank_Click"/>
+        <Button x:Name="btnReturnView" Content="Return" Margin="220,323,457,39" Click="btnReturnView_Click"/>
 
     </Grid>
 </Window>
