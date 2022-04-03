@@ -12,7 +12,7 @@ namespace Project05
         public string customer_name;
         public string customer_address;
         public int customer_phone_number;
-        private List<Account> accountList;
+        public static List<Account> accountList;
         // Constructors Default/Non-default
         public Customer() { }
         public Customer(string cus_name, string cus_addr, int cus_phone_num)
@@ -23,7 +23,7 @@ namespace Project05
             accountList = new List<Account>();
         }
         // Methods
-        public void AddAccount(Account customerAccount)
+        public static void AddAccount(Account customerAccount)
         {
             accountList.Add(customerAccount);
             return;

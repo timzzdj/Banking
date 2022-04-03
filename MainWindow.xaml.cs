@@ -28,123 +28,69 @@ namespace Project05
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        Bank new_bank = new Bank("Ruptcy", "888 Pigeons Blvd. Pensacola, FL", 0987654321);
+        Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
         public MainWindow()
         {
             InitializeComponent();
-            btnExit_Bank.Visibility = Visibility.Hidden;
-            btnEnterBank.Visibility = Visibility.Visible;
-            btnReturnView.Visibility = Visibility.Hidden;
-            loadCustomerView();
-        }
-
-        public void loadBank()
-        {
-            Bank new_bank = new Bank("Bank of Ruptcy", "888 Bank Blvd. Pensacola, FL.", 0987654321);
-            txtBank_Name.Text = new_bank.ToString();
-        }
-
-        public void loadCustomers()
-        {
-            Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, Fl", 123456789);
-            Bank.AddCustomer(new_customer);
-            txtCustomer_Details.Text = new_customer.ToString();
-
-            try
-            {
-                for (int x = 0; x <= Bank.customerList.Count - 1; x++)
-                {
-                    Button customer_button = new Button();
-                    customer_button.Content = $"{Bank.customerList[x].customer_name}";
-                    customer_button.Name = $"btnCustomerNew{x}";
-                    customer_button.Visibility = Visibility.Visible;
-                    customer_button.Click += new RoutedEventHandler(customer_button_Click);
-                    grdCustomerButtons.Children.Add(customer_button);
-                }
-            }
-            catch (ArgumentOutOfRangeException aRe)
-            {
-                throw new ArgumentOutOfRangeException("An error occurred, please exit the bank.", aRe);
-            }
-        }
-        public void loadAccounts()
-        {
-            
-        }
-
-        protected void customer_button_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtCustomer_Details.Visibility != Visibility.Visible)
-            {
-                txtCustomer_Details.Visibility = Visibility.Visible;
-                btnShowAccounts.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                txtCustomer_Details.Visibility = Visibility.Hidden;
-                btnShowAccounts.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private void btnEnterBank_Click(object sender, RoutedEventArgs e)
-        {
-            btnEnterBank.Visibility = Visibility.Hidden;
-
             loadBank();
             loadCustomers();
-            loadCustomerView();
+            loadAccounts();
         }
-
-        private void btnExit_Bank_Click(object sender, RoutedEventArgs e)
+        private void loadBank()
         {
-            btnEnterBank.Visibility = Visibility.Visible;
-            btnReturnView.Visibility = Visibility.Hidden;
-            loadCustomerView();
+            txtBankDetails.Text = new_bank.ToString();
         }
-
-        private void btnShowAccounts_Click(object sender, RoutedEventArgs e)
+        private void loadCustomers()
         {
-            btnReturnView.Visibility = Visibility.Visible;
-            loadCustomerView();
-        }
+            Bank.AddCustomer(new_customer);
 
-        private void btnReturnView_Click(object sender, RoutedEventArgs e)
-        {
-            btnEnterBank.Visibility = Visibility.Hidden;
-            btnReturnView.Visibility = Visibility.Hidden;
-            loadCustomerView();
-        }
-
-        public void loadCustomerView()
-        {
-            if (btnEnterBank.Visibility == Visibility.Visible)
+            for (int x = 0; x < Bank.customerList.Count; x++)
             {
-                txtCustomer_Details.Visibility = Visibility.Hidden;
-                txtBank_Name.Visibility = Visibility.Hidden;
-                btnShowAccounts.Visibility = Visibility.Hidden;
-                btnExit_Bank.Visibility = Visibility.Hidden;
-                lblWelcome_msg1.Visibility = Visibility.Hidden;
-                lblWelcome_msg2.Visibility = Visibility.Hidden;
-                grdCustomerButtons.Visibility = Visibility.Hidden;
-                grdAccountTabs.Visibility = Visibility.Hidden;
+                cmbCustomerList.Items.Add(Bank.customerList[x].customer_name);
             }
-            else if(btnReturnView.Visibility == Visibility.Visible)
+        }
+
+        private void loadAccounts()
+        {
+            Account new_checkings  = new Checking();
+            Account new_savings    = new Savings();
+            Account new_loan       = new Loan();
+            Account new_retirement = new Retirement();
+            Customer.AddAccount(new_checkings);
+            Customer.AddAccount(new_savings);
+            Customer.AddAccount(new_loan);
+            Customer.AddAccount(new_retirement);
+            txtAccountDetails.Text = new_retirement.ToString();
+        }
+
+        private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch(cmbCustomerList.SelectedIndex)
             {
-                txtCustomer_Details.Visibility = Visibility.Hidden;
-                txtBank_Name.Visibility = Visibility.Hidden;
-                btnShowAccounts.Visibility = Visibility.Hidden;
-                grdCustomerButtons.Visibility = Visibility.Hidden;
-                btnExit_Bank.Visibility = Visibility.Visible;
-                grdAccountTabs.Visibility = Visibility.Visible;
+                case -1:
+                    txtCustomerDetails.Text = string.Empty;
+                    break;
+                case 0:
+                    txtCustomerDetails.Text = new_customer.ToString();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Item selected Out of Range!");
             }
-            else
+        }
+
+        private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(cmbAccountType.SelectedIndex > -1)
             {
-                txtBank_Name.Visibility = Visibility.Visible;
-                btnExit_Bank.Visibility = Visibility.Visible;
-                lblWelcome_msg1.Visibility = Visibility.Visible;
-                lblWelcome_msg2.Visibility = Visibility.Visible;
-                grdCustomerButtons.Visibility = Visibility.Visible;
-                grdAccountTabs.Visibility = Visibility.Hidden;
+                txtInputAmount.IsEnabled = true;
+
+                switch(cmbAccountType.SelectedIndex)
+                {
+                    case -1:
+                        txtAccountDetails.Text = string.Empty;
+                        break;
+                }
             }
         }
     }

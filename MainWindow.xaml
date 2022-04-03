@@ -19,70 +19,21 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Button x:Name="btnEnterBank" Content="Enter Bank" HorizontalAlignment="Left" Margin="389,0,0,0" VerticalAlignment="Center" Height="26" Width="86" Click="btnEnterBank_Click"/>
-        <Grid x:Name="grdBank_Details" Margin="343,0,0,0">
-            <TextBox x:Name="txtCustomer_Details" HorizontalAlignment="Center" Margin="0,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="455" Height="79" IsReadOnly="True" FontWeight="Bold" FontFamily="Courier New" FontSize="14"/>
-            <TextBox x:Name="txtBank_Name" HorizontalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="437" Height="71" IsReadOnly="True" FontFamily="Courier New" FontSize="14" FontWeight="Bold"/>
-            <Grid x:Name="grdCustomerButtons" Margin="121,86,121,304"/>
-            <Button x:Name="btnShowAccounts" Content="Show Accounts" HorizontalAlignment="Center" Margin="0,232,0,0" VerticalAlignment="Top" Height="27" Width="128" Click="btnShowAccounts_Click"/>
-            <Grid x:Name="grdAccountTabs">
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFE4EAF9" Offset="1"/>
-                        <GradientStop Color="#FFB9CCFF" Offset="0.647"/>
-                        <GradientStop Color="#FFB9B9B9" Offset="0"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
-                <TabControl x:Name="tabAccounts">
-                    <TabItem x:Name="tabCheckings" Header="Checkings" IsSelected="True">
-                        <Grid x:Name="grdCheckingsDetails">
-                            <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFFFEDBD" Offset="0"/>
-                                    <GradientStop Color="#FFFFD050" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
-                        </Grid>
-                    </TabItem>
-                    <TabItem x:Name="tabSavings" Header="Savings">
-                        <Grid x:Name="grdSavingsDetails">
-                            <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFF7FFEA" Offset="0"/>
-                                    <GradientStop Color="#FFB4DE77" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
-                        </Grid>
-                    </TabItem>
-                    <TabItem x:Name="tabLoan" Header="Loan" HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="54">
-                        <Grid x:Name="grdLoanDetails">
-                            <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FFFDF5F2" Offset="0"/>
-                                    <GradientStop Color="#FFFF9D80" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
-                        </Grid>
-                    </TabItem>
-                    <TabItem x:Name="tabRetirement" Header="Retirement" HorizontalAlignment="Center" Height="20" VerticalAlignment="Center" Width="88">
-                        <Grid x:Name="grdRetirementDetails">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="135*"/>
-                                <ColumnDefinition Width="314*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF36A4FF" Offset="0.967"/>
-                                    <GradientStop Color="White" Offset="0"/>
-                                </LinearGradientBrush>
-                            </Grid.Background>
-                        </Grid>
-                    </TabItem>
-                </TabControl>
-            </Grid>
+        <Grid x:Name="grdBank_Details" Margin="309,0,0,0">
+            <ComboBox x:Name="cmbCustomerList" HorizontalAlignment="Left" Margin="98,60,0,0" VerticalAlignment="Top" Width="163" SelectionChanged="cmbCustomerList_SelectionChanged"/>
+            <ComboBox x:Name="cmbAccountType" HorizontalAlignment="Left" Margin="98,203,0,0" VerticalAlignment="Top" Width="163" Height="22" SelectionChanged="cmbAccountType_SelectionChanged"/>
+            <Label x:Name="lblCustomerName" Content="Customer Name" HorizontalAlignment="Left" Margin="2,57,0,0" VerticalAlignment="Top" Width="99" Height="25"/>
+            <Label Content="Account Type" HorizontalAlignment="Left" Margin="14,201,0,0" VerticalAlignment="Top" Height="28" Width="84"/>
+            <TextBox x:Name="txtCustomerDetails" HorizontalAlignment="Left" Margin="98,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" Height="102" IsReadOnly="True"/>
+            <TextBox x:Name="txtAccountDetails" HorizontalAlignment="Left" Margin="98,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" Height="154" IsReadOnly="True"/>
+            <Label x:Name="lblAmountInput" Content="Amount" HorizontalAlignment="Left" Margin="273,200,0,0" VerticalAlignment="Top" Height="27" Width="54"/>
+            <TextBox x:Name="txtInputAmount" HorizontalAlignment="Left" Margin="327,202,0,0" Text="&#xD;&#xA;" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" Height="23" Background="#FFC5FFB5" FontWeight="Bold" FontFamily="Courier New" IsEnabled="False"/>
+            <Button x:Name="btnDeposit" Content="Deposit" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <Button x:Name="btnWithdraw" Content="Withdraw" HorizontalAlignment="Left" Margin="0,279,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <Button x:Name="btnPay" Content="Make Payment" HorizontalAlignment="Left" Margin="0,317,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <Button x:Name="btnEndCycle" Content="End Cycle" HorizontalAlignment="Left" Margin="0,354,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
         </Grid>
-        <Button x:Name="btnExit_Bank" Content="Exit Bank" HorizontalAlignment="Left" Margin="43,323,0,0" VerticalAlignment="Top" Height="49" Width="125" Click="btnExit_Bank_Click"/>
-        <Button x:Name="btnReturnView" Content="Return" Margin="201,323,476,39" Click="btnReturnView_Click"/>
+        <TextBox x:Name="txtBankDetails" HorizontalAlignment="Left" Margin="10,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="113" FontFamily="Courier New" TextAlignment="Left"/>
 
     </Grid>
 </Window>

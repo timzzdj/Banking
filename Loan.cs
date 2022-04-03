@@ -20,9 +20,11 @@ namespace Project05
         {
             loan_payments -= p_amount_paid;
         }
+        public override double StartingBalance { get => 10000.00; }
+        public override double EndingBalance { get;}
         public override string ToString()
         {
-            return $"";
+            return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tLoan Principle: ${loan_principle}\n\tLoan Payments: ${loan_payments}";
         }
     }
 }

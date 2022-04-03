@@ -12,6 +12,14 @@ namespace Project05
         private double savings_balance;
         public double savings_debits;
         public double savings_credits;
+        // Constructirs
+        public Savings() { }
+        public Savings(double savings_bal, double savings_deb, double savings_cred)
+        {
+            savings_balance = savings_bal;
+            savings_debits = savings_deb;
+            savings_credits = savings_cred;
+        }
         // Properties
         public double SavingsBalance
         {
@@ -36,6 +44,12 @@ namespace Project05
         public void SavingsWithdrawal(double p_amount_withdrawed)
         {
             savings_balance -= p_amount_withdrawed;
+        }
+        public override double StartingBalance { get => 100.00; }
+        public override double EndingBalance { get; }
+        public override string ToString()
+        {
+            return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tSavings Balance: ${savings_balance}\n\tSavings Debits: ${savings_debits}\n\tSavings Credits: ${savings_credits}";
         }
     }
 }

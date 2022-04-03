@@ -9,34 +9,44 @@ namespace Project05
     internal abstract class Account
     {
         // Constants
-        public const double ANNUAL_RATE = 0.1225;
 
         // Fields
-        private int account_number;
-        private string account_type;
+        public static double account_number;
+        //private string account_type;
         private double annual_percentage_rate;
 
         // Constructor
-        public Account() { }
-        public Account(int acc_num, string acc_type, double annual_percent_rate)
+        protected Account() { }
+        protected Account(double annual_percent_rate, double acc_num)
         {
             account_number = acc_num;
-            account_type = acc_type;
+           // account_type = acc_type;
             annual_percentage_rate = annual_percent_rate;
         }
-        public int AccountNumber
+        public double AccountNumber
         {
-            get => account_number++;            
+            get => account_number = 112334566789;            
         }
+        public double AnnualPercentRate
+        {
+            get => annual_percentage_rate;
+            set => annual_percentage_rate = 0.05f;
+        }
+        public abstract double StartingBalance { get; }
+        public abstract double EndingBalance { get; }
         public virtual string AccountType
         {
-            get => "Bank Account";
+            get => $"";
         }
-       // public abstract double StartingBalance { get; }
-      //  public abstract double EndingBalance { get; }
-      /*  public override string ToString()
+        // public abstract double StartingBalance { get; }
+        //  public abstract double EndingBalance { get; }
+        /*  public override string ToString()
+          {
+              return $"";
+          } */
+        public override string ToString()
         {
-            return $"";
-        } */
+            return $"\t--Account Information--\nAccount Number: {account_number}\nAnnual Percentage Rate: {Math.Round(annual_percentage_rate), 2}%";
+        }
     }
 }

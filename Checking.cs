@@ -12,6 +12,14 @@ namespace Project05
         private double checkings_balance;
         public double checkings_debits;
         public double checkings_credits;
+        // Constructors
+        public Checking() { }
+        public Checking(double checkings_bal, double checkings_deb, double checkings_cred)
+        {
+            checkings_balance = checkings_bal;
+            checkings_debits = checkings_deb;
+            checkings_credits = checkings_cred;
+        }
         // Properties
         public double CheckingsBalance
         {
@@ -36,6 +44,12 @@ namespace Project05
         public void CheckingsWithdrawal(double p_amount_withdrawed)
         {
             checkings_balance -= p_amount_withdrawed;
+        }
+        public override double StartingBalance { get => 100.00; }
+        public override double EndingBalance { get; }
+        public override string ToString()
+        {
+            return $"\tStarting Balance: ${StartingBalance}\n\tEndling Balance: ${EndingBalance}\nChecking Balance: ${checkings_balance}\n\tChecking Debits: ${checkings_debits}\n\tChecking Credits: ${checkings_credits}";
         }
     }
 }
