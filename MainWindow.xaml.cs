@@ -52,46 +52,44 @@ namespace Project05
         }
 
         private void loadAccounts()
-        {
-            Account new_checkings  = new Checking();
-            Account new_savings    = new Savings();
-            Account new_loan       = new Loan();
-            Account new_retirement = new Retirement();
-            Customer.AddAccount(new_checkings);
-            Customer.AddAccount(new_savings);
-            Customer.AddAccount(new_loan);
-            Customer.AddAccount(new_retirement);
-            txtAccountDetails.Text = new_retirement.ToString();
+        {            
+            //txtAccountDetails.Text = new_retirement.ToString();
+
+            for(int selected_customer = 0; selected_customer < Bank.customerList.Count; selected_customer++)
+            {
+                switch (selected_customer)
+                {
+                    case 0:
+                        Account new_checkings = new Checking();
+                        Account new_savings = new Savings();
+                        Account new_loan = new Loan();
+                        Account new_retirement = new Retirement();
+                        Customer.AddAccount(new_checkings);
+                        Customer.AddAccount(new_savings);
+                        Customer.AddAccount(new_loan);
+                        Customer.AddAccount(new_retirement);
+                        break;
+                    default:
+                        throw new IndexOutOfRangeException("You are Out of Range!");
+                }
+
+            }
         }
 
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            switch(cmbCustomerList.SelectedIndex)
+            if(cmbCustomerList.SelectedIndex > -1)
             {
-                case -1:
-                    txtCustomerDetails.Text = string.Empty;
-                    break;
-                case 0:
-                    txtCustomerDetails.Text = new_customer.ToString();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Item selected Out of Range!");
-            }
+                for (int x = 0; x < Bank.customerList.Count; x++)
+                {
+                    txtCustomerDetails.Text = Bank.customerList[x].ToString();
+                }
+            }            
         }
 
         private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cmbAccountType.SelectedIndex > -1)
-            {
-                txtInputAmount.IsEnabled = true;
-
-                switch(cmbAccountType.SelectedIndex)
-                {
-                    case -1:
-                        txtAccountDetails.Text = string.Empty;
-                        break;
-                }
-            }
+            
         }
     }
 }
