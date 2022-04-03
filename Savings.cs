@@ -47,6 +47,7 @@ namespace Project05
         }
         public override double StartingBalance { get => 100.00; }
         public override double EndingBalance { get; }
+        public sealed override string AccountType => $"Savings";
         public override string ToString()
         {
             return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tSavings Balance: ${savings_balance}\n\tSavings Debits: ${savings_debits}\n\tSavings Credits: ${savings_credits}";

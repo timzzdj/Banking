@@ -29,67 +29,84 @@ namespace Project05
     public partial class MainWindow : Window
     {
         Bank new_bank = new Bank("Ruptcy", "888 Pigeons Blvd. Pensacola, FL", 0987654321);
-        Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
+        
         public MainWindow()
         {
             InitializeComponent();
-            loadBank();
-            loadCustomers();
-            loadAccounts();
-        }
-        private void loadBank()
-        {
+            // Load the Bank Details
             txtBankDetails.Text = new_bank.ToString();
-        }
-        private void loadCustomers()
-        {
+
+            // Load the first customer details
+            Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
+            // Load first customer's accounts
+            Account new_checkings = new Checking();
+            Customer.AddAccount(new_checkings);
+            Account new_savings = new Savings();
+            Customer.AddAccount(new_savings);
+            Account new_loan = new Loan();
+            Customer.AddAccount(new_loan);
+            Account new_retirement = new Retirement();
+            Customer.AddAccount(new_retirement);
+            // Add the first customers to the Bank
             Bank.AddCustomer(new_customer);
 
+            // List each customer in a dropdown list
             for (int x = 0; x < Bank.customerList.Count; x++)
             {
                 cmbCustomerList.Items.Add(Bank.customerList[x].customer_name);
             }
-        }
-
-        private void loadAccounts()
-        {            
-            //txtAccountDetails.Text = new_retirement.ToString();
-
-            for(int selected_customer = 0; selected_customer < Bank.customerList.Count; selected_customer++)
+            // List each customer's accounts in a dropdown list
+            for(int x = 0; x < Customer.accountList.Count; x++)
             {
-                switch (selected_customer)
-                {
-                    case 0:
-                        Account new_checkings = new Checking();
-                        Account new_savings = new Savings();
-                        Account new_loan = new Loan();
-                        Account new_retirement = new Retirement();
-                        Customer.AddAccount(new_checkings);
-                        Customer.AddAccount(new_savings);
-                        Customer.AddAccount(new_loan);
-                        Customer.AddAccount(new_retirement);
-                        break;
-                    default:
-                        throw new IndexOutOfRangeException("You are Out of Range!");
-                }
-
+                cmbAccountType.Items.Add(Customer.accountList[x].AccountType);
             }
         }
-
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cmbCustomerList.SelectedIndex > -1)
+           /* if(cmbCustomerList.SelectedIndex > -1)
             {
                 for (int x = 0; x < Bank.customerList.Count; x++)
                 {
                     txtCustomerDetails.Text = Bank.customerList[x].ToString();
                 }
-            }            
+            } */
+            switch (cmbCustomerList.SelectedIndex)
+            {
+                case 0:
+                    txtCustomerDetails.Text = Bank.customerList[0].ToString();
+                    break;
+                default:
+                    throw new Exception();
+            }
         }
 
         private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            /*
+            if(cmbAccountType.SelectedIndex > -1)
+            {
+                for (int x = 0; x < Customer.accountList.Count; x++)
+                {
+                    txtAccountDetails.Text = Customer.accountList[x].ToString();
+                }
+            } */
+            switch (cmbAccountType.SelectedIndex)
+            {
+                case 0:
+                    txtAccountDetails.Text = Customer.accountList[0].ToString();
+                    break;
+                case 1:
+                    txtAccountDetails.Text = Customer.accountList[1].ToString();
+                    break;
+                case 2:
+                    txtAccountDetails.Text = Customer.accountList[2].ToString();
+                    break;
+                case 3:
+                    txtAccountDetails.Text = Customer.accountList[3].ToString();
+                    break;
+                default:
+                    throw new Exception();
+            }
         }
     }
 }

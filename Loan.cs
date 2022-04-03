@@ -22,6 +22,7 @@ namespace Project05
         }
         public override double StartingBalance { get => 10000.00; }
         public override double EndingBalance { get;}
+        public sealed override string AccountType => $"Loan";
         public override string ToString()
         {
             return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tLoan Principle: ${loan_principle}\n\tLoan Payments: ${loan_payments}";

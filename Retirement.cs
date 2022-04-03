@@ -22,6 +22,7 @@ namespace Project05
         }
         public override double StartingBalance { get => 1000.00; }
         public override double EndingBalance { get; }
+        public sealed override string AccountType => $"Retirement";
         public override string ToString()
         {
             return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tRetirement Balance: ${retirement_balance}\n\tRetiremnet Deposits: ${retirement_deposits}";

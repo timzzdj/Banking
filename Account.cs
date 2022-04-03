@@ -36,7 +36,7 @@ namespace Project05
         public abstract double EndingBalance { get; }
         public virtual string AccountType
         {
-            get => $"";
+            get => "Bank Account";
         }
         // public abstract double StartingBalance { get; }
         //  public abstract double EndingBalance { get; }
