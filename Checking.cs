@@ -50,7 +50,7 @@ namespace Project05
         public sealed override string AccountType => $"Checkings";
         public override string ToString()
         {
-            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {Math.Round(AnnualPercentRate, 2)}%\n\tStarting Balance: ${StartingBalance}\n\tEndling Balance: ${EndingBalance}\n\tChecking Balance: ${checkings_balance}\n\tChecking Debits: ${checkings_debits}\n\tChecking Credits: ${checkings_credits}";
+            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\n\tStarting Balance: ${StartingBalance}\n\tEndling Balance: ${EndingBalance}\n\tChecking Balance: ${checkings_balance}\n\tChecking Debits: ${checkings_debits}\n\tChecking Credits: ${checkings_credits}";
         }
     }
 }

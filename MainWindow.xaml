@@ -27,11 +27,11 @@
             <TextBox x:Name="txtCustomerDetails" HorizontalAlignment="Left" Margin="98,87,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" Height="102" IsReadOnly="True"/>
             <TextBox x:Name="txtAccountDetails" HorizontalAlignment="Left" Margin="98,235,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" Height="154" IsReadOnly="True"/>
             <Label x:Name="lblAmountInput" Content="Amount" HorizontalAlignment="Left" Margin="273,200,0,0" VerticalAlignment="Top" Height="27" Width="54"/>
-            <TextBox x:Name="txtInputAmount" HorizontalAlignment="Left" Margin="327,202,0,0" Text="&#xD;&#xA;" TextWrapping="Wrap" VerticalAlignment="Top" Width="135" Height="23" Background="#FFC5FFB5" FontWeight="Bold" FontFamily="Courier New" IsEnabled="False"/>
-            <Button x:Name="btnDeposit" Content="Deposit" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <Button x:Name="btnDeposit" Content="Deposit" HorizontalAlignment="Left" Margin="0,242,0,0" VerticalAlignment="Top" Width="93" Height="25" Click="btnDeposit_Click"/>
             <Button x:Name="btnWithdraw" Content="Withdraw" HorizontalAlignment="Left" Margin="0,279,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
             <Button x:Name="btnPay" Content="Make Payment" HorizontalAlignment="Left" Margin="0,317,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
             <Button x:Name="btnEndCycle" Content="End Cycle" HorizontalAlignment="Left" Margin="0,354,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <TextBox x:Name="txtInputAmount" HorizontalAlignment="Left" Margin="332,206,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="19"/>
         </Grid>
         <TextBox x:Name="txtBankDetails" HorizontalAlignment="Left" Margin="10,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="113" FontFamily="Courier New" TextAlignment="Left"/>
 

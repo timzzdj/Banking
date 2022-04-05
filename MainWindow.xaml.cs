@@ -33,9 +33,13 @@ namespace Project05
         public MainWindow()
         {
             InitializeComponent();
+            txtInputAmount.IsEnabled = false;
+            btnDeposit.IsEnabled = false;
+            btnWithdraw.IsEnabled = false;
+            btnPay.IsEnabled = false;
+            btnEndCycle.IsEnabled = false;
             // Load the Bank Details
             txtBankDetails.Text = new_bank.ToString();
-
             // Load the first customer details
             Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
             // Load first customer's accounts
@@ -62,37 +66,46 @@ namespace Project05
             }
         }
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {            
-            switch (cmbCustomerList.SelectedIndex)
+        {
+            if(cmbCustomerList.SelectedIndex == 0)
             {
-                case 0:
-                    txtCustomerDetails.Text = Bank.customerList[0].ToString();
-                    cmbAccountType.IsEnabled = cmbCustomerList.SelectedIndex > -1;
-                    break;
-                default:
-                    throw new Exception();
+                txtCustomerDetails.Text = Bank.customerList[0].ToString();
+                cmbAccountType.IsEnabled = cmbCustomerList.SelectedIndex > -1;
             }
         }
 
         private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
-            switch (cmbAccountType.SelectedIndex)
+            if(cmbAccountType.SelectedIndex > -1)
             {
-                case 0:
-                    txtAccountDetails.Text = Customer.accountList[0].ToString();
-                    break;
-                case 1:
-                    txtAccountDetails.Text = Customer.accountList[1].ToString();
-                    break;
-                case 2:
-                    txtAccountDetails.Text = Customer.accountList[2].ToString();
-                    break;
-                case 3:
-                    txtAccountDetails.Text = Customer.accountList[3].ToString();
-                    break;
-                default:
-                    throw new Exception();
+                switch (cmbAccountType.SelectedIndex)
+                {
+                    case 0:
+                        txtAccountDetails.Text = Customer.accountList[0].ToString();
+                        break;
+                    case 1:
+                        txtAccountDetails.Text = Customer.accountList[1].ToString();
+                        break;
+                    case 2:
+                        txtAccountDetails.Text = Customer.accountList[2].ToString();
+                        break;
+                    case 3:
+                        txtAccountDetails.Text = Customer.accountList[3].ToString();
+                        break;
+                    default:
+                        throw new Exception();
+                }
+
+                txtInputAmount.IsEnabled = true;
+            }
+            
+        }
+
+        private void btnDeposit_Click(object sender, RoutedEventArgs e)
+        {
+            if(cmbCustomerList.SelectedIndex > -1)
+            {
+
             }
         }
     }
