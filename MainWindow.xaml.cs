@@ -47,7 +47,7 @@ namespace Project05
             Customer.AddAccount(new_checkings);
             Account new_savings = new Savings(450.0f, 0.0f, 0.0f);
             Customer.AddAccount(new_savings);
-            Account new_loan = new Loan(0.00f, 5000.00f);
+            Account new_loan = new Loan(500.00f, 5000.00f);
             Customer.AddAccount(new_loan);
             Account new_retirement = new Retirement(1000.00f, 0.00f);
             Customer.AddAccount(new_retirement);
@@ -82,15 +82,31 @@ namespace Project05
                 {
                     case 0:
                         txtAccountDetails.Text = Customer.accountList[0].ToString();
+                        btnDeposit.IsEnabled = true;
+                        btnWithdraw.IsEnabled = true;
+                        btnPay.IsEnabled = false;
+                        btnEndCycle.IsEnabled = true;
                         break;
                     case 1:
                         txtAccountDetails.Text = Customer.accountList[1].ToString();
+                        btnDeposit.IsEnabled = true;
+                        btnWithdraw.IsEnabled = true;
+                        btnPay.IsEnabled = false;
+                        btnEndCycle.IsEnabled = true;
                         break;
                     case 2:
                         txtAccountDetails.Text = Customer.accountList[2].ToString();
+                        btnDeposit.IsEnabled = false;
+                        btnWithdraw.IsEnabled = true;
+                        btnPay.IsEnabled = true;
+                        btnEndCycle.IsEnabled = true;
                         break;
                     case 3:
                         txtAccountDetails.Text = Customer.accountList[3].ToString();
+                        btnDeposit.IsEnabled = true;
+                        btnWithdraw.IsEnabled = false;
+                        btnPay.IsEnabled = false;
+                        btnEndCycle.IsEnabled = true;
                         break;
                     default:
                         throw new Exception();
@@ -103,9 +119,72 @@ namespace Project05
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            if(cmbCustomerList.SelectedIndex > -1)
+            
+            if(cmbAccountType.SelectedIndex > -1)
             {
+                if(cmbAccountType.SelectedIndex == 0)
+                {
+                    double start_checking_bal = Checking.checkings_balance;
+                    double deposit_total = Checking.CheckingsDeposit(double.Parse(txtInputAmount.Text));
 
+                    txtAccountChanges.Text = $"Checkings Balance: ${start_checking_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${deposit_total}";
+                }
+                else if(cmbAccountType.SelectedIndex == 1)
+                {
+                    double start_saving_bal = Savings.savings_balance;
+                    double deposit_total = Savings.SavingsDeposit(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Savings Balance:\t   ${start_saving_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${deposit_total}";
+                }
+                else if(cmbAccountType.SelectedIndex == 3)
+                {
+                    double start_retire_bal = Retirement.retirement_balance;
+                    double deposit_total = Retirement.RetirementDeposit(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Retirement Balance:${start_retire_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${deposit_total}";
+                }
+            }
+        }
+
+        private void btnWithdraw_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbAccountType.SelectedIndex > -1)
+            {
+                if (cmbAccountType.SelectedIndex == 0)
+                {
+                    double start_checking_bal = Checking.checkings_balance;
+                    double withdraw_total = Checking.CheckingsWithdrawal(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Checkings Balance: ${start_checking_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${withdraw_total}";
+                }
+                else if (cmbAccountType.SelectedIndex == 1)
+                {
+                    double start_saving_bal = Savings.savings_balance;
+                    double withdraw_total = Savings.SavingsWithdrawal(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Savings Balance:\t   ${start_saving_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${withdraw_total}";
+                }
+                else if (cmbAccountType.SelectedIndex == 2)
+                {
+                    double start_loan_bal = Loan.loan_principle;
+                    double withdraw_total = Loan.Loanwithdrawal(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Loan Principle:\t  ${start_loan_bal}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${withdraw_total}";
+                }
+            }
+        }
+
+        private void btnPay_Click(object sender, RoutedEventArgs e)
+        {
+            if(cmbAccountType.SelectedIndex > -1)
+            {
+                if(cmbAccountType.SelectedIndex == 2)
+                {
+                    double start_loan_pay = Loan.loan_payments;
+                    double payment_total = Loan.LoanPayments(double.Parse(txtInputAmount.Text));
+
+                    txtAccountChanges.Text = $"Loan Payments:\t  ${start_loan_pay}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${payment_total}";
+                }
             }
         }
     }

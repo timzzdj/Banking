@@ -9,8 +9,8 @@ namespace Project05
     internal class Loan : Account 
     {
         // Fields
-        private double loan_principle;
-        private double loan_payments;
+        public static double loan_principle;
+        public static double loan_payments;
 
         // Constructors
         public Loan() { }
@@ -23,9 +23,16 @@ namespace Project05
         public double LoanPrinciple { get => loan_principle;}
 
         // Methods
-        public void LoanPayments(double p_amount_paid)
+        public static double Loanwithdrawal(double p_amount_withdrew)
+        {
+            loan_principle -= p_amount_withdrew;
+            return loan_principle;
+        }
+        public static double LoanPayments(double p_amount_paid)
         {
             loan_payments -= p_amount_paid;
+            loan_principle += p_amount_paid;
+            return loan_payments;
         }
         public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get;}

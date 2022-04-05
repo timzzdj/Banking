@@ -9,7 +9,7 @@ namespace Project05
     internal class Checking : Account
     {
         // Fields
-        private double checkings_balance;
+        public static double checkings_balance;
         public double checkings_debits;
         public double checkings_credits;
         // Constructors
@@ -37,20 +37,22 @@ namespace Project05
             set => checkings_credits = value;
         }
         // Methods
-        public void CheckingsDeposit(double p_amount_deposited)
+        public static double CheckingsDeposit(double p_amount_deposited)
         {
             checkings_balance += p_amount_deposited;
+            return checkings_balance;
         }
-        public void CheckingsWithdrawal(double p_amount_withdrawed)
+        public static double CheckingsWithdrawal(double p_amount_withdrew)
         {
-            checkings_balance -= p_amount_withdrawed;
+            checkings_balance -= p_amount_withdrew;
+            return checkings_balance;
         }
         public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get; }
         public sealed override string AccountType => $"Checkings";
         public override string ToString()
         {
-            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\n\tStarting Balance: ${StartingBalance}\n\tEndling Balance: ${EndingBalance}\n\tChecking Balance: ${checkings_balance}\n\tChecking Debits: ${checkings_debits}\n\tChecking Credits: ${checkings_credits}";
+            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\nStarting Balance: ${StartingBalance}\nEndling Balance: ${EndingBalance}\nChecking Balance: ${checkings_balance}\nChecking Debits: ${checkings_debits}\nChecking Credits: ${checkings_credits}";
         }
     }
 }

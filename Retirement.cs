@@ -9,8 +9,8 @@ namespace Project05
     internal class Retirement : Account 
     {
         // Fields
-        private double retirement_balance;
-        private double retirement_deposits;
+        public static double retirement_balance;
+        public static double retirement_deposits;
 
         // Constructors
         public Retirement() { }
@@ -23,16 +23,17 @@ namespace Project05
         public double RetirementBalance { get => retirement_balance; }
 
         //Methods
-        public void RetirementDeposit(double p_amount_deposited)
+        public static double RetirementDeposit(double p_amount_deposited)
         {
-            retirement_deposits += p_amount_deposited;
+            retirement_balance += p_amount_deposited;
+            return retirement_balance;
         }
         public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get; }
         public sealed override string AccountType => $"Retirement";
         public override string ToString()
         {
-            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\n\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tRetirement Balance: ${retirement_balance}\n\tRetiremnet Deposits: ${retirement_deposits}";
+            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\nStarting Balance: ${StartingBalance}\nEnding Balance: ${EndingBalance}\nRetirement Balance: ${retirement_balance}\nRetiremnet Deposits: ${retirement_deposits}";
         }
     }
 }

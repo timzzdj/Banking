@@ -9,7 +9,7 @@ namespace Project05
     internal class Savings : Account
     {
         // Fields
-        private double savings_balance;
+        public static double savings_balance;
         public double savings_debits;
         public double savings_credits;
         // Constructirs
@@ -37,20 +37,22 @@ namespace Project05
             set => savings_credits = value;
         }
         // Methods
-        public void SavingsDeposit(double p_amount_deposited)
+        public static double SavingsDeposit(double p_amount_deposited)
         {
             savings_balance += p_amount_deposited;
+            return savings_balance;
         }
-        public void SavingsWithdrawal(double p_amount_withdrawed)
+        public static double SavingsWithdrawal(double p_amount_withdrew)
         {
-            savings_balance -= p_amount_withdrawed;
+            savings_balance -= p_amount_withdrew;
+            return savings_balance;
         }
         public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get; }
         public sealed override string AccountType => $"Savings";
         public override string ToString()
         {
-            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {String.Format("{0:P2}",AnnualPercentRate)}\n\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tSavings Balance: ${savings_balance}\n\tSavings Debits: ${savings_debits}\n\tSavings Credits: ${savings_credits}";
+            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}",AnnualPercentRate)}\nStarting Balance: ${StartingBalance}\nEnding Balance: ${EndingBalance}\nSavings Balance: ${savings_balance}\nSavings Debits: ${savings_debits}\nSavings Credits: ${savings_credits}";
         }
     }
 }
