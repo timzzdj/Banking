@@ -39,13 +39,13 @@ namespace Project05
             // Load the first customer details
             Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
             // Load first customer's accounts
-            Account new_checkings = new Checking();
+            Account new_checkings = new Checking(500.00f, 0.0f, 0.0f);
             Customer.AddAccount(new_checkings);
-            Account new_savings = new Savings();
+            Account new_savings = new Savings(450.0f, 0.0f, 0.0f);
             Customer.AddAccount(new_savings);
-            Account new_loan = new Loan();
+            Account new_loan = new Loan(0.00f, 5000.00f);
             Customer.AddAccount(new_loan);
-            Account new_retirement = new Retirement();
+            Account new_retirement = new Retirement(1000.00f, 0.00f);
             Customer.AddAccount(new_retirement);
             // Add the first customers to the Bank
             Bank.AddCustomer(new_customer);
@@ -62,18 +62,12 @@ namespace Project05
             }
         }
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-           /* if(cmbCustomerList.SelectedIndex > -1)
-            {
-                for (int x = 0; x < Bank.customerList.Count; x++)
-                {
-                    txtCustomerDetails.Text = Bank.customerList[x].ToString();
-                }
-            } */
+        {            
             switch (cmbCustomerList.SelectedIndex)
             {
                 case 0:
                     txtCustomerDetails.Text = Bank.customerList[0].ToString();
+                    cmbAccountType.IsEnabled = cmbCustomerList.SelectedIndex > -1;
                     break;
                 default:
                     throw new Exception();
@@ -82,14 +76,7 @@ namespace Project05
 
         private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*
-            if(cmbAccountType.SelectedIndex > -1)
-            {
-                for (int x = 0; x < Customer.accountList.Count; x++)
-                {
-                    txtAccountDetails.Text = Customer.accountList[x].ToString();
-                }
-            } */
+            
             switch (cmbAccountType.SelectedIndex)
             {
                 case 0:

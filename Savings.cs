@@ -45,12 +45,12 @@ namespace Project05
         {
             savings_balance -= p_amount_withdrawed;
         }
-        public override double StartingBalance { get => 100.00; }
+        public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get; }
         public sealed override string AccountType => $"Savings";
         public override string ToString()
         {
-            return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tSavings Balance: ${savings_balance}\n\tSavings Debits: ${savings_debits}\n\tSavings Credits: ${savings_credits}";
+            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {AnnualPercentRate}%\n\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tSavings Balance: ${savings_balance}\n\tSavings Debits: ${savings_debits}\n\tSavings Credits: ${savings_credits}";
         }
     }
 }

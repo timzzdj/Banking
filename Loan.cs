@@ -12,6 +12,13 @@ namespace Project05
         private double loan_principle;
         private double loan_payments;
 
+        // Constructors
+        public Loan() { }
+        public Loan(double loan_prin, double loan_pay)
+        {
+            loan_principle = loan_prin;
+            loan_payments = loan_pay;
+        }
         // Properties
         public double LoanPrinciple { get => loan_principle;}
 
@@ -20,12 +27,12 @@ namespace Project05
         {
             loan_payments -= p_amount_paid;
         }
-        public override double StartingBalance { get => 10000.00; }
+        public override double StartingBalance { get => 0.00f; }
         public override double EndingBalance { get;}
         public sealed override string AccountType => $"Loan";
         public override string ToString()
         {
-            return $"\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tLoan Principle: ${loan_principle}\n\tLoan Payments: ${loan_payments}";
+            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {AnnualPercentRate}%\n\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tLoan Principle: ${loan_principle}\n\tLoan Payments: ${loan_payments}";
         }
     }
 }

@@ -29,8 +29,7 @@ namespace Project05
         }
         public double AnnualPercentRate
         {
-            get => annual_percentage_rate;
-            set => annual_percentage_rate = 0.05f;
+            get => annual_percentage_rate = 0.05f;
         }
         public abstract double StartingBalance { get; }
         public abstract double EndingBalance { get; }
@@ -46,7 +45,7 @@ namespace Project05
           } */
         public override string ToString()
         {
-            return $"\t--Account Information--\nAccount Number: {account_number}\nAnnual Percentage Rate: {Math.Round(annual_percentage_rate), 2}%";
+            return $"\t--Account Information--\nAccount Number: {account_number}";
         }
     }
 }
