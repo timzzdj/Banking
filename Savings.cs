@@ -9,13 +9,13 @@ namespace Project05
     internal class Savings : Account
     {
         // Fields
-        public static double savings_balance;
-        public static double savings_debits;
-        public static double savings_credits;
-        public static double savings_interest;
+        private double savings_balance;
+        private double savings_debits;
+        private double savings_credits;
+        private double savings_interest;
         // Constructirs
         public Savings() { }
-        public Savings(double savings_bal, double savings_deb, double savings_cred)
+        public Savings(double savings_bal, double savings_deb, double savings_cred, double annual_percent_rate, int acc_num) : base(annual_percent_rate,acc_num)
         {
             savings_balance = savings_bal;
             savings_debits = savings_deb;
@@ -38,21 +38,21 @@ namespace Project05
             get => savings_credits;
             set => savings_credits = value;
         }
-        public override double StartingBalance { get => savings_balance - EndingBalance; }
+        public override double StartingBalance { get => savings_balance; }
         public override double EndingBalance { get => (savings_balance + savings_credits - savings_debits) * savings_interest; }
         public sealed override string AccountType => $"Savings";
         // Methods
-        public static double SavingsDeposit(double p_amount_deposited)
+        public double SavingsDeposit(double p_amount_deposited)
         {
-            savings_balance += p_amount_deposited;
-            return savings_balance;
+            savings_credits += p_amount_deposited;
+            return savings_credits;
         }
-        public static double SavingsWithdrawal(double p_amount_withdrew)
+        public double SavingsWithdrawal(double p_amount_withdrew)
         {
-            savings_balance -= p_amount_withdrew;
-            return savings_balance;
+            savings_debits += p_amount_withdrew;
+            return savings_debits;
         }
-        public static void SavingsEndCycle()
+        public void SavingsEndCycle()
         {
             savings_balance += (savings_balance + savings_credits - savings_debits) * savings_interest;
             savings_credits = 0.0f;

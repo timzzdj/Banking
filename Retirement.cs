@@ -9,13 +9,13 @@ namespace Project05
     internal class Retirement : Account 
     {
         // Fields
-        public static double retirement_balance;
-        public static double retirement_deposits;
-        public static double retirement_interest;
+        private double retirement_balance;
+        private double retirement_deposits;
+        private double retirement_interest;
 
         // Constructors
         public Retirement() { }
-        public Retirement(double retirement_bal, double retirement_dep)
+        public Retirement(double retirement_bal, double retirement_dep, double annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
         {
             retirement_balance = retirement_bal;
             retirement_deposits = retirement_dep;
@@ -23,16 +23,16 @@ namespace Project05
         }
         // Properties
         public double RetirementBalance { get => retirement_balance; }
-        public override double StartingBalance { get => retirement_balance - EndingBalance; }
+        public override double StartingBalance { get => retirement_balance; }
         public override double EndingBalance { get => (retirement_deposits + retirement_balance) * retirement_interest; }
         public sealed override string AccountType => $"Retirement";
         //Methods
-        public static double RetirementDeposit(double p_amount_deposited)
+        public double RetirementDeposit(double p_amount_deposited)
         {
             retirement_balance += p_amount_deposited;
             return retirement_balance;
         }
-        public static void RetirementEndCycle()
+        public void RetirementEndCycle()
         {
             retirement_balance += (retirement_deposits + retirement_balance) * retirement_interest;
             retirement_deposits = 0.0f;

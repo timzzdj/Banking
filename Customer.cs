@@ -9,21 +9,28 @@ namespace Project05
     internal class Customer
     {
         // Fields
-        public string customer_name;
-        public string customer_address;
-        public int customer_phone_number;
-        public static List<Account> accountList;
+        private string customer_name;
+        private string customer_address;
+        private string customer_phone_number;
+        private List<Account> accountList;
         // Constructors Default/Non-default
         public Customer() { }
-        public Customer(string cus_name, string cus_addr, int cus_phone_num)
+        public Customer(string cus_name, string cus_addr, string cus_phone_num)
         {
             customer_name = cus_name;
             customer_address = cus_addr;
             customer_phone_number = cus_phone_num;
             accountList = new List<Account>();
         }
+        public string CustomerName { get => customer_name; }
+        public string CustomerAddress { get => customer_address; }
+        public string CustomerPhone { get => customer_phone_number; }
+        public List<Account> AccountsLists
+        {
+            get => accountList;
+        }
         // Methods
-        public static void AddAccount(Account customerAccount)
+        public void AddAccount(Account customerAccount)
         {
             accountList.Add(customerAccount);
             return;

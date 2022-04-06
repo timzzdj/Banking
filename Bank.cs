@@ -9,10 +9,10 @@ namespace Project05
     internal class Bank
     {
         // Fields
-        public string bank_name;
-        public string bank_address;
-        public int bank_phone_number;
-        public static List<Customer> customerList;
+        private string bank_name;
+        private string bank_address;
+        private int bank_phone_number;
+        private List<Customer> customerList;
 
         // Constructors Default/Non-default
         public Bank() { }
@@ -23,9 +23,12 @@ namespace Project05
             bank_phone_number = bankPhoneNumber;
             customerList = new List<Customer>();
         }
-
+        public List<Customer> CustomerLists
+        {
+            get => customerList;
+        }
         // Methods
-        public static void AddCustomer(Customer bankCustomer)
+        public void AddCustomer(Customer bankCustomer)
         {
             customerList.Add(bankCustomer);
             return;

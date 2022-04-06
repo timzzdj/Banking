@@ -11,20 +11,20 @@ namespace Project05
         // Constants
 
         // Fields
-        public static double account_number;
+        private int account_number = 137243;
         //private string account_type;
         private double annual_percent_yield;
 
         // Constructor
         protected Account() { }
-        protected Account(double annual_percent_rate, double acc_num)
+        protected Account(double annual_percent_rate, int acc_num)
         {
             account_number = acc_num;
             annual_percent_yield = annual_percent_rate;
         }
-        public double AccountNumber
+        public int AccountNumber
         {
-            get => account_number = 112334566789;            
+            get => account_number;            
         }
         public double AnnualPercentRate
         {

@@ -29,7 +29,11 @@ namespace Project05
     public partial class MainWindow : Window
     {
         Bank new_bank = new Bank("Ruptcy", "888 Pigeons Blvd. Pensacola, FL", 0987654321);
-        
+        Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", "+1 (234)-567-8901");
+        Checking new_checkings;
+        Savings new_savings;
+        Loan new_loan;
+        Retirement new_retirement;
         public MainWindow()
         {
             InitializeComponent();
@@ -40,36 +44,43 @@ namespace Project05
             btnEndCycle.IsEnabled = false;
             // Load the Bank Details
             txtBankDetails.Text = new_bank.ToString();
+            new_bank.AddCustomer(new_customer);
             // Load the first customer details
-            Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", 1234567890);
+            new_checkings = new Checking(0.0, 0.0, 0.0, 0.01, 137243);
+            new_savings = new Savings(0.0, 0.0, 0.0, 0.05, 137243);
+            new_loan = new Loan(0.0, 0.0, 0.01, 137243);
+            new_retirement = new Retirement(0.0, 0.0, 0.5, 137243);
+            //new_savings
             // Load first customer's accounts
-            Account new_checkings = new Checking(0.00f, 0.0f, 0.0f);
-            Customer.AddAccount(new_checkings);
-            Account new_savings = new Savings(0.0f, 0.0f, 0.0f);
-            Customer.AddAccount(new_savings);
-            Account new_loan = new Loan(50000.0f, 0.0f);
-            Customer.AddAccount(new_loan);
-            Account new_retirement = new Retirement(1000.00f, 0.00f);
-            Customer.AddAccount(new_retirement);
+            new_customer.AddAccount(new_checkings);
+            new_customer.AddAccount(new_savings);
+            new_customer.AddAccount(new_loan);
+            new_customer.AddAccount(new_retirement);
             // Add the first customers to the Bank
-            Bank.AddCustomer(new_customer);
-
+            loadCustomerLists();
+            loadAccountLists();
+            
+        }
+        public void loadCustomerLists()
+        {
             // List each customer in a dropdown list
-            for (int x = 0; x < Bank.customerList.Count; x++)
+            for (int x = 0; x < new_bank.CustomerLists.Count; x++)
             {
-                cmbCustomerList.Items.Add(Bank.customerList[x].customer_name);
+                cmbCustomerList.Items.Add(new_bank.CustomerLists[x].CustomerName);
             }
-            // List each customer's accounts in a dropdown list
-            for(int x = 0; x < Customer.accountList.Count; x++)
+        }
+        public void loadAccountLists()
+        {
+            foreach (Account accounts in new_customer.AccountsLists)
             {
-                cmbAccountType.Items.Add(Customer.accountList[x].AccountType);
+                cmbAccountType.Items.Add(accounts.AccountType);
             }
         }
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(cmbCustomerList.SelectedIndex == 0)
             {
-                txtCustomerDetails.Text = Bank.customerList[0].ToString();
+                txtCustomerDetails.Text = new_bank.CustomerLists[0].ToString();
                 cmbAccountType.IsEnabled = cmbCustomerList.SelectedIndex > -1;
             }
         }
@@ -81,28 +92,28 @@ namespace Project05
                 switch (cmbAccountType.SelectedIndex)
                 {
                     case 0:
-                        txtAccountDetails.Text = Customer.accountList[0].ToString();
+                        txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
                         btnDeposit.IsEnabled = true;
                         btnWithdraw.IsEnabled = true;
                         btnPay.IsEnabled = false;
                         btnEndCycle.IsEnabled = true;
                         break;
                     case 1:
-                        txtAccountDetails.Text = Customer.accountList[1].ToString();
+                        txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
                         btnDeposit.IsEnabled = true;
                         btnWithdraw.IsEnabled = true;
                         btnPay.IsEnabled = false;
                         btnEndCycle.IsEnabled = true;
                         break;
                     case 2:
-                        txtAccountDetails.Text = Customer.accountList[2].ToString();
+                        txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
                         btnDeposit.IsEnabled = false;
                         btnWithdraw.IsEnabled = false;
                         btnPay.IsEnabled = true;
                         btnEndCycle.IsEnabled = true;
                         break;
                     case 3:
-                        txtAccountDetails.Text = Customer.accountList[3].ToString();
+                        txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
                         btnDeposit.IsEnabled = true;
                         btnWithdraw.IsEnabled = false;
                         btnPay.IsEnabled = false;
@@ -118,28 +129,27 @@ namespace Project05
         }
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
-        {
-            
+        {            
             if(txtCycleChanges.Text == string.Empty)
             {
                 if(cmbAccountType.SelectedIndex == 0)
                 {
-                    double start_checking_bal = Checking.checkings_balance;
-                    double deposit_total = Checking.CheckingsDeposit(double.Parse(txtInputAmount.Text));
+                    double start_checking_bal = new_checkings.CheckingsBalance;
+                    double deposit_total = new_checkings.CheckingsDeposit(double.Parse(txtInputAmount.Text));
 
                     txtCycleChanges.Text = $"Checkings Balance: ${Math.Round(start_checking_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
                 }
                 else if(cmbAccountType.SelectedIndex == 1)
                 {
-                    double start_saving_bal = Savings.savings_balance;
-                    double deposit_total = Savings.SavingsDeposit(double.Parse(txtInputAmount.Text));
+                    double start_saving_bal = new_savings.SavingsBalance;
+                    double deposit_total = new_savings.SavingsDeposit(double.Parse(txtInputAmount.Text));
 
                     txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Round(start_saving_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
                 }
                 else if(cmbAccountType.SelectedIndex == 3)
                 {
-                    double start_retire_bal = Retirement.retirement_balance;
-                    double deposit_total = Retirement.RetirementDeposit(double.Parse(txtInputAmount.Text));
+                    double start_retire_bal = new_retirement.RetirementBalance;
+                    double deposit_total = new_retirement.RetirementDeposit(double.Parse(txtInputAmount.Text));
 
                     txtCycleChanges.Text = $"Retirement Balance:${Math.Round(start_retire_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
                 }
@@ -156,17 +166,17 @@ namespace Project05
             {
                 if (cmbAccountType.SelectedIndex == 0)
                 {
-                    double start_checking_bal = Checking.checkings_balance;
-                    double withdraw_total = Checking.CheckingsWithdrawal(double.Parse(txtInputAmount.Text));
+                    double start_checking_bal = new_checkings.CheckingsBalance;
+                    double withdraw_total = new_checkings.CheckingsWithdrawal(double.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Round(start_checking_bal, 2)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
+                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
                 }
                 else if (cmbAccountType.SelectedIndex == 1)
                 {
-                    double start_saving_bal = Savings.savings_balance;
-                    double withdraw_total = Savings.SavingsWithdrawal(double.Parse(txtInputAmount.Text));
+                    double start_saving_bal = new_savings.SavingsBalance;
+                    double withdraw_total = new_savings.SavingsWithdrawal(double.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Round(start_saving_bal, 2)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
+                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
                 }
             }
             else
@@ -181,8 +191,8 @@ namespace Project05
             {
                 if(cmbAccountType.SelectedIndex == 2)
                 {
-                    double start_loan_principle = Loan.loan_principle;
-                    double payment_total = Loan.LoanPayments(double.Parse(txtInputAmount.Text));
+                    double start_loan_principle = new_loan.LoanPrinciple;
+                    double payment_total = new_loan.LoanPayments(double.Parse(txtInputAmount.Text));
 
                     txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Round(start_loan_principle, 2)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(payment_total, 2)}";
                 }
@@ -200,19 +210,20 @@ namespace Project05
             switch (cmbAccountType.SelectedIndex)
             {
                 case 0:
-                    Checking.CheckingsEndCycle();
-                    txtAccountDetails.Text = Customer.accountList[0].ToString();
+                    new_checkings.CheckingsEndCycle();
+                    txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
                     break;
                 case 1:
-                    Savings.SavingsEndCycle();
-                    txtAccountDetails.Text = Customer.accountList[1].ToString();
+                    new_savings.SavingsEndCycle();
+                    txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
                     break;
                 case 2:
-                    Loan.LoanEndCycle();
-                    txtAccountDetails.Text = Customer.accountList[2].ToString();
+                    new_loan.LoanEndCycle();
+                    txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
                     break;
                 case 3:
-                    txtAccountDetails.Text = Customer.accountList[3].ToString();
+                    new_retirement.RetirementEndCycle();
+                    txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
                     break;
                 default:
                     throw new Exception();

@@ -21,7 +21,7 @@
         </Label>
         <Grid x:Name="grdBank_Details" Margin="309,0,0,0">
             <ComboBox x:Name="cmbCustomerList" HorizontalAlignment="Left" Margin="102,24,0,0" VerticalAlignment="Top" Width="164" SelectionChanged="cmbCustomerList_SelectionChanged"/>
-            <ComboBox x:Name="cmbAccountType" HorizontalAlignment="Left" Margin="109,169,0,0" VerticalAlignment="Top" Width="163" Height="22" SelectionChanged="cmbAccountType_SelectionChanged" IsEnabled="False"/>
+            <ComboBox x:Name="cmbAccountType" HorizontalAlignment="Left" Margin="109,169,0,0" VerticalAlignment="Top" Width="163" Height="22" SelectionChanged="cmbAccountType_SelectionChanged"/>
             <Label x:Name="lblCustomerName" Content="Customer Name" HorizontalAlignment="Left" Margin="6,21,0,0" VerticalAlignment="Top" Width="100" Height="25"/>
             <Label Content="Account Type" HorizontalAlignment="Left" Margin="25,167,0,0" VerticalAlignment="Top" Height="28" Width="84"/>
             <TextBox x:Name="txtCustomerDetails" HorizontalAlignment="Left" Margin="102,51,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="364" Height="102" IsReadOnly="True"/>
