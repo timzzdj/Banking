@@ -20,7 +20,6 @@ namespace Project05
         protected Account(double annual_percent_rate, double acc_num)
         {
             account_number = acc_num;
-            // account_type = acc_type;
             annual_percent_yield = annual_percent_rate;
         }
         public double AccountNumber
@@ -37,12 +36,6 @@ namespace Project05
         {
             get => "Bank Account";
         }
-        // public abstract double StartingBalance { get; }
-        //  public abstract double EndingBalance { get; }
-        /*  public override string ToString()
-          {
-              return $"";
-          } */
         public override string ToString()
         {
             return $"\t--Account Information--\nAccount Number: {account_number}";
