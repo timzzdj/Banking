@@ -45,9 +45,9 @@ namespace Project05
             // Load first customer's accounts
             Account new_checkings = new Checking(0.00f, 0.0f, 0.0f);
             Customer.AddAccount(new_checkings);
-            Account new_savings = new Savings(450.0f, 0.0f, 0.0f);
+            Account new_savings = new Savings(0.0f, 0.0f, 0.0f);
             Customer.AddAccount(new_savings);
-            Account new_loan = new Loan(500.00f, 5000.00f);
+            Account new_loan = new Loan(50000.0f, 0.0f);
             Customer.AddAccount(new_loan);
             Account new_retirement = new Retirement(1000.00f, 0.00f);
             Customer.AddAccount(new_retirement);
@@ -97,7 +97,7 @@ namespace Project05
                     case 2:
                         txtAccountDetails.Text = Customer.accountList[2].ToString();
                         btnDeposit.IsEnabled = false;
-                        btnWithdraw.IsEnabled = true;
+                        btnWithdraw.IsEnabled = false;
                         btnPay.IsEnabled = true;
                         btnEndCycle.IsEnabled = true;
                         break;
@@ -168,13 +168,6 @@ namespace Project05
 
                     txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Round(start_saving_bal, 2)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
                 }
-                else if (cmbAccountType.SelectedIndex == 2)
-                {
-                    double start_loan_bal = Loan.loan_principle;
-                    double withdraw_total = Loan.Loanwithdrawal(double.Parse(txtInputAmount.Text));
-
-                    txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Round(start_loan_bal, 2)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Principle:\t   ${Math.Round(withdraw_total, 2)}";
-                }
             }
             else
             {
@@ -188,10 +181,10 @@ namespace Project05
             {
                 if(cmbAccountType.SelectedIndex == 2)
                 {
-                    double start_loan_pay = Loan.loan_payments;
+                    double start_loan_principle = Loan.loan_principle;
                     double payment_total = Loan.LoanPayments(double.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Loan Payments:\t  ${Math.Round(start_loan_pay, 2)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(payment_total, 2)}";
+                    txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Round(start_loan_principle, 2)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(payment_total, 2)}";
                 }
             }
             else
@@ -211,9 +204,11 @@ namespace Project05
                     txtAccountDetails.Text = Customer.accountList[0].ToString();
                     break;
                 case 1:
+                    Savings.SavingsEndCycle();
                     txtAccountDetails.Text = Customer.accountList[1].ToString();
                     break;
                 case 2:
+                    Loan.LoanEndCycle();
                     txtAccountDetails.Text = Customer.accountList[2].ToString();
                     break;
                 case 3:
