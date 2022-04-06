@@ -32,7 +32,7 @@ namespace Project05
         }
         public override string ToString()
         {
-            return $"\t\tWelcome to {bank_name}\nWe are located in {bank_address}\nCall us at: {bank_phone_number}\nHere is a list of our customers:";
+            return $"\tWelcome to the Bank of {bank_name}\nWe are located in {bank_address}\nCall us at: {bank_phone_number}\nHere is a list of our customers:";
         }
     }
 }

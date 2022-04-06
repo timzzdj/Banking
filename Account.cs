@@ -13,15 +13,15 @@ namespace Project05
         // Fields
         public static double account_number;
         //private string account_type;
-        private double annual_percentage_rate;
+        private double annual_percent_yield;
 
         // Constructor
         protected Account() { }
         protected Account(double annual_percent_rate, double acc_num)
         {
             account_number = acc_num;
-           // account_type = acc_type;
-            annual_percentage_rate = annual_percent_rate;
+            // account_type = acc_type;
+            annual_percent_yield = annual_percent_rate;
         }
         public double AccountNumber
         {
@@ -29,7 +29,7 @@ namespace Project05
         }
         public double AnnualPercentRate
         {
-            get => annual_percentage_rate = 0.05f;
+            get => annual_percent_yield = 0.01f;
         }
         public abstract double StartingBalance { get; }
         public abstract double EndingBalance { get; }

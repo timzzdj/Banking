@@ -26,6 +26,7 @@ namespace Project05
         public static double Loanwithdrawal(double p_amount_withdrew)
         {
             loan_principle -= p_amount_withdrew;
+            loan_payments += p_amount_withdrew;
             return loan_principle;
         }
         public static double LoanPayments(double p_amount_paid)
@@ -39,7 +40,7 @@ namespace Project05
         public sealed override string AccountType => $"Loan";
         public override string ToString()
         {
-            return $"\tAccount Number: {AccountNumber}\n\tInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\n\tStarting Balance: ${StartingBalance}\n\tEnding Balance: ${EndingBalance}\n\tLoan Principle: ${loan_principle}\n\tLoan Payments: ${loan_payments}";
+            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\nStarting Balance: ${StartingBalance}\nEnding Balance: ${EndingBalance}\nLoan Principle: ${loan_principle}\nLoan Payments: ${loan_payments}";
         }
     }
 }

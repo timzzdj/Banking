@@ -30,9 +30,9 @@
             <Button x:Name="btnDeposit" Content="Deposit" HorizontalAlignment="Left" VerticalAlignment="Center" Width="93" Height="25" Click="btnDeposit_Click"/>
             <Button x:Name="btnWithdraw" Content="Withdraw" HorizontalAlignment="Left" Margin="0,251,0,0" VerticalAlignment="Top" Width="93" Height="25" Click="btnWithdraw_Click"/>
             <Button x:Name="btnPay" Content="Make Payment" HorizontalAlignment="Left" Margin="0,301,0,0" VerticalAlignment="Top" Width="93" Height="25" Click="btnPay_Click"/>
-            <Button x:Name="btnEndCycle" Content="End Cycle" HorizontalAlignment="Left" Margin="0,354,0,0" VerticalAlignment="Top" Width="93" Height="25"/>
+            <Button x:Name="btnEndCycle" Content="End Cycle" HorizontalAlignment="Left" Margin="0,354,0,0" VerticalAlignment="Top" Width="93" Height="25" Click="btnEndCycle_Click"/>
             <TextBox x:Name="txtInputAmount" HorizontalAlignment="Left" Margin="343,172,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="130" Height="19"/>
-            <TextBox x:Name="txtAccountChanges" HorizontalAlignment="Left" Margin="305,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="189"/>
+            <TextBox x:Name="txtCycleChanges" HorizontalAlignment="Left" Margin="305,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="176" Height="189"/>
         </Grid>
         <TextBox x:Name="txtBankDetails" HorizontalAlignment="Left" Margin="10,270,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="286" Height="113" FontFamily="Courier New" TextAlignment="Left"/>
 

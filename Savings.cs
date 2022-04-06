@@ -10,8 +10,9 @@ namespace Project05
     {
         // Fields
         public static double savings_balance;
-        public double savings_debits;
-        public double savings_credits;
+        public static double savings_debits;
+        public static double savings_credits;
+        public static double savings_interest;
         // Constructirs
         public Savings() { }
         public Savings(double savings_bal, double savings_deb, double savings_cred)
@@ -19,6 +20,7 @@ namespace Project05
             savings_balance = savings_bal;
             savings_debits = savings_deb;
             savings_credits = savings_cred;
+            savings_interest = AnnualPercentRate;
         }
         // Properties
         public double SavingsBalance
@@ -36,6 +38,9 @@ namespace Project05
             get => savings_credits;
             set => savings_credits = value;
         }
+        public override double StartingBalance { get => savings_balance - EndingBalance; }
+        public override double EndingBalance { get => (savings_balance + savings_credits - savings_debits) * (savings_interest / 12); }
+        public sealed override string AccountType => $"Savings";
         // Methods
         public static double SavingsDeposit(double p_amount_deposited)
         {
@@ -47,12 +52,15 @@ namespace Project05
             savings_balance -= p_amount_withdrew;
             return savings_balance;
         }
-        public override double StartingBalance { get => 0.00f; }
-        public override double EndingBalance { get; }
-        public sealed override string AccountType => $"Savings";
+        public static void SavingsEndCycle()
+        {
+            savings_balance += (savings_balance + savings_credits - savings_debits) * (savings_interest / 12);
+            savings_credits = 0.0f;
+            savings_debits = 0.0f;
+        }
         public override string ToString()
         {
-            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}",AnnualPercentRate)}\nStarting Balance: ${StartingBalance}\nEnding Balance: ${EndingBalance}\nSavings Balance: ${savings_balance}\nSavings Debits: ${savings_debits}\nSavings Credits: ${savings_credits}";
+            return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}", AnnualPercentRate)}\nStarting Balance: ${Math.Round(StartingBalance, 2)}\nEnding Balance: ${Math.Round(EndingBalance + StartingBalance, 2)}\nSavings Debits: ${savings_debits}\nSavings Credits: ${savings_credits}";
         }
     }
 }
