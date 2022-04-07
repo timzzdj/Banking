@@ -9,13 +9,13 @@ namespace Project05
     internal class Checking : Account
     {
         // Fields
-        private double checkings_balance;
-        private double checkings_debits;
-        private double checkings_credits;
-        private double checkings_interest;
+        private float checkings_balance;
+        private float checkings_debits;
+        private float checkings_credits;
+        private float checkings_interest;
         // Constructors
         public Checking() { }
-        public Checking(double checkings_bal, double checkings_deb, double checkings_cred, double annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
+        public Checking(float checkings_bal, float checkings_deb, float checkings_cred, float annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
         {
             checkings_balance = checkings_bal;
             checkings_debits = checkings_deb;
@@ -23,22 +23,22 @@ namespace Project05
             checkings_interest = AnnualPercentRate / 12;
         } 
         // Properties
-        public double CheckingsBalance
+        public float CheckingsBalance
         {
             get => checkings_balance;
             set => checkings_balance = value;
         }
-        public double CheckingsDebits
+        public float CheckingsDebits
         {
             get => checkings_debits;
             set => checkings_debits = value;
         }
-        public double CheckingsCredits
+        public float CheckingsCredits
         {
             get => checkings_credits;
             set => checkings_credits = value;
         }        
-        public double CheckingInterests
+        public float CheckingInterests
         {
             get => AnnualPercentRate;
         }
@@ -46,24 +46,38 @@ namespace Project05
         {
             get => AccountNumber;
         }
-        public override double StartingBalance { get => checkings_balance; }
-        public override double EndingBalance { get => (checkings_balance + checkings_credits - checkings_debits) * checkings_interest; }
+        public override float StartingBalance { get => checkings_balance; }
+        public override float EndingBalance { get => (checkings_balance + checkings_credits - checkings_debits) * checkings_interest; }
         public sealed override string AccountType => $"Checkings";
         // Methods
-        public double CheckingsDeposit(double p_amount_deposited)
+        public float CheckingsDeposit(float p_amount_deposited)
         {
-            checkings_credits += p_amount_deposited;
+            if (checkings_balance > 0.0f)
+            {
+                checkings_credits += p_amount_deposited;
+            }
+            else
+            {
+                throw new ArgumentException("Deposit cannot be less than zero!");
+            }
             return checkings_credits;
         }
-        public double CheckingsWithdrawal(double p_amount_withdrew)
+        public float CheckingsWithdrawal(float p_amount_withdrew)
         {
-            checkings_debits += p_amount_withdrew;
+            if (checkings_balance > 0.0f)
+            {
+                checkings_debits += p_amount_withdrew;
+            }
+            else
+            {
+                throw new ArgumentException("Insufficient Funds!");
+            }
+            
             return checkings_debits;
         }        
         public void CheckingsEndCycle()
         {
             checkings_balance += (checkings_balance + checkings_credits - checkings_debits) * checkings_interest;
-            //checkings_balance += (checkings_balance + checkings_credits - checkings_debits) * checkings_interest;
             checkings_credits = 0.0f;
             checkings_debits = 0.0f;
         }

@@ -9,28 +9,35 @@ namespace Project05
     internal class Loan : Account 
     {
         // Fields
-        private double loan_principle;
-        private double loan_payments;
-        private double loan_interest;
+        private float loan_principle;
+        private float loan_payments;
+        private float loan_interest;
 
         // Constructors
         public Loan() { }
-        public Loan(double loan_prin, double loan_pay, double annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
+        public Loan(float loan_prin, float loan_pay, float annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
         {
             loan_principle = loan_prin;
             loan_payments = loan_pay;
-            loan_interest = 0.05 / 12;
+            loan_interest = 0.05f / 12;
         }
         // Properties
-        public double LoanPrinciple { get => loan_principle;}
-        public override double StartingBalance { get => loan_principle; }
-        public override double EndingBalance { get => (loan_principle - loan_payments) * loan_interest; }
+        public float LoanPrinciple { get => loan_principle;}
+        public override float StartingBalance { get => loan_principle; }
+        public override float EndingBalance { get => (loan_principle - loan_payments) * loan_interest; }
         public sealed override string AccountType => $"Loan";
         // Methods
-        public double LoanPayments(double p_amount_paid)
+        public float PayLoan(float p_amount_paid)
         {
-            loan_principle -= p_amount_paid;
-            return loan_principle;
+            if (loan_principle > 0.0f)
+            {
+                loan_payments += p_amount_paid;
+            }
+            else
+            {
+                throw new ArgumentException("Loan owed is less than payment!");
+            }
+            return loan_payments;
         }
         public void LoanEndCycle()
         {
@@ -40,8 +47,8 @@ namespace Project05
         public override string ToString()
         {
             return $"Account Number: {AccountNumber}\nInterest Rate: {String.Format("{0:P2}", loan_interest)}" +
-                   $"\nStarting Balance: ${Math.Round(StartingBalance - EndingBalance, 2)}\nEnding Balance: ${Math.Round(EndingBalance + StartingBalance, 2)}" +
-                   $"\nLoan Principle: ${Math.Round(loan_principle, 2)}";
+                   $"\nStarting Balance: ${Math.Floor(StartingBalance - EndingBalance)}\nEnding Balance: ${Math.Floor(EndingBalance + StartingBalance)}" +
+                   $"\nLoan Principle: ${Math.Floor(loan_principle)}" + $"\nLoan Payments: ${Math.Floor(loan_payments)}";
         }
     }
 }

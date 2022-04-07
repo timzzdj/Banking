@@ -13,11 +13,11 @@ namespace Project05
         // Fields
         private int account_number = 137243;
         //private string account_type;
-        private double annual_percent_yield;
+        private float annual_percent_yield;
 
         // Constructor
         protected Account() { }
-        protected Account(double annual_percent_rate, int acc_num)
+        protected Account(float annual_percent_rate, int acc_num)
         {
             account_number = acc_num;
             annual_percent_yield = annual_percent_rate;
@@ -26,12 +26,12 @@ namespace Project05
         {
             get => account_number;            
         }
-        public double AnnualPercentRate
+        public float AnnualPercentRate
         {
             get => annual_percent_yield = 0.01f;
         }
-        public abstract double StartingBalance { get; }
-        public abstract double EndingBalance { get; }
+        public abstract float StartingBalance { get; }
+        public abstract float EndingBalance { get; }
         public virtual string AccountType
         {
             get => "Bank Account";

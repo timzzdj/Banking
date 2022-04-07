@@ -46,10 +46,10 @@ namespace Project05
             txtBankDetails.Text = new_bank.ToString();
             new_bank.AddCustomer(new_customer);
             // Load the first customer details
-            new_checkings = new Checking(0.0, 0.0, 0.0, 0.01, 137243);
-            new_savings = new Savings(0.0, 0.0, 0.0, 0.05, 137243);
-            new_loan = new Loan(0.0, 0.0, 0.01, 137243);
-            new_retirement = new Retirement(0.0, 0.0, 0.5, 137243);
+            new_checkings = new Checking(0.0f, 0.0f, 0.0f, 0.01f, 137243);
+            new_savings = new Savings(0.0f, 0.0f, 0.0f, 0.05f, 137243);
+            new_loan = new Loan(1000000.0f, 0.0f, 0.01f, 137243);
+            new_retirement = new Retirement(0.0f, 0.0f, 0.5f, 137243);
             //new_savings
             // Load first customer's accounts
             new_customer.AddAccount(new_checkings);
@@ -89,118 +89,134 @@ namespace Project05
         {
             if(cmbAccountType.SelectedIndex > -1)
             {
-                switch (cmbAccountType.SelectedIndex)
+                if (txtCycleChanges.Text == string.Empty)
                 {
-                    case 0:
-                        txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
-                        btnDeposit.IsEnabled = true;
-                        btnWithdraw.IsEnabled = true;
-                        btnPay.IsEnabled = false;
-                        btnEndCycle.IsEnabled = true;
-                        break;
-                    case 1:
-                        txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
-                        btnDeposit.IsEnabled = true;
-                        btnWithdraw.IsEnabled = true;
-                        btnPay.IsEnabled = false;
-                        btnEndCycle.IsEnabled = true;
-                        break;
-                    case 2:
-                        txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
-                        btnDeposit.IsEnabled = false;
-                        btnWithdraw.IsEnabled = false;
-                        btnPay.IsEnabled = true;
-                        btnEndCycle.IsEnabled = true;
-                        break;
-                    case 3:
-                        txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
-                        btnDeposit.IsEnabled = true;
-                        btnWithdraw.IsEnabled = false;
-                        btnPay.IsEnabled = false;
-                        btnEndCycle.IsEnabled = true;
-                        break;
-                    default:
-                        throw new Exception();
+                    switch (cmbAccountType.SelectedIndex)
+                    {
+                        case 0:
+                            txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
+                            btnDeposit.IsEnabled = true;
+                            btnWithdraw.IsEnabled = true;
+                            btnPay.IsEnabled = false;
+                            btnEndCycle.IsEnabled = true;
+                            break;
+                        case 1:
+                            txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
+                            btnDeposit.IsEnabled = true;
+                            btnWithdraw.IsEnabled = true;
+                            btnPay.IsEnabled = false;
+                            btnEndCycle.IsEnabled = true;
+                            break;
+                        case 2:
+                            txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
+                            btnDeposit.IsEnabled = false;
+                            btnWithdraw.IsEnabled = false;
+                            btnPay.IsEnabled = true;
+                            btnEndCycle.IsEnabled = true;
+                            break;
+                        case 3:
+                            txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
+                            btnDeposit.IsEnabled = true;
+                            btnWithdraw.IsEnabled = false;
+                            btnPay.IsEnabled = false;
+                            btnEndCycle.IsEnabled = true;
+                            break;
+                        default:
+                            throw new Exception();
+                    }
+                    txtInputAmount.IsEnabled = true;
                 }
-
-                txtInputAmount.IsEnabled = true;
-            }
-            
+                else 
+                    MessageBox.Show("Please End Your Cycle First!", "Incomplete changes!");
+            }            
         }
 
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
-        {            
-            if(txtCycleChanges.Text == string.Empty)
+        {
+            if (txtInputAmount.Text != string.Empty)
             {
-                if(cmbAccountType.SelectedIndex == 0)
+                if (cmbAccountType.SelectedIndex == 0)
                 {
-                    double start_checking_bal = new_checkings.CheckingsBalance;
-                    double deposit_total = new_checkings.CheckingsDeposit(double.Parse(txtInputAmount.Text));
+                    float start_checking_bal = new_checkings.CheckingsBalance;
+                    float deposit_total = new_checkings.CheckingsDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Round(start_checking_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
+                    txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
+                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
                 }
-                else if(cmbAccountType.SelectedIndex == 1)
+                else if (cmbAccountType.SelectedIndex == 1)
                 {
-                    double start_saving_bal = new_savings.SavingsBalance;
-                    double deposit_total = new_savings.SavingsDeposit(double.Parse(txtInputAmount.Text));
+                    float start_saving_bal = new_savings.SavingsBalance;
+                    float deposit_total = new_savings.SavingsDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Round(start_saving_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
+                    txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
+                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
                 }
-                else if(cmbAccountType.SelectedIndex == 3)
+                else if (cmbAccountType.SelectedIndex == 3)
                 {
-                    double start_retire_bal = new_retirement.RetirementBalance;
-                    double deposit_total = new_retirement.RetirementDeposit(double.Parse(txtInputAmount.Text));
+                    float start_retire_bal = new_retirement.RetirementBalance;
+                    float deposit_total = new_retirement.RetirementDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Retirement Balance:${Math.Round(start_retire_bal, 2)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(deposit_total, 2)}";
+                    txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
+                    txtCycleChanges.Text = $"Retirement Balance:${Math.Floor(start_retire_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
                 }
             }
             else
-            {
-                MessageBox.Show("Please End your Cycle first!", "Incomplete Changes");
-            }
+                txtCycleChanges.Text = $"No Amount To Deposit!";
         }
 
         private void btnWithdraw_Click(object sender, RoutedEventArgs e)
         {
-            if (txtCycleChanges.Text == string.Empty)
+            if (txtInputAmount.Text != string.Empty)
             {
-                if (cmbAccountType.SelectedIndex == 0)
+                if (new_customer.AccountsLists[cmbAccountType.SelectedIndex].StartingBalance > 0.0f)
                 {
-                    double start_checking_bal = new_checkings.CheckingsBalance;
-                    double withdraw_total = new_checkings.CheckingsWithdrawal(double.Parse(txtInputAmount.Text));
+                    if (cmbAccountType.SelectedIndex == 0)
+                    {
+                        float start_checking_bal = new_checkings.CheckingsBalance;
+                        float withdraw_total = new_checkings.CheckingsWithdrawal(float.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
+                        txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
+                        txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(withdraw_total)}";
+                    }
+                    else if (cmbAccountType.SelectedIndex == 1)
+                    {
+                        float start_saving_bal = new_savings.SavingsBalance;
+                        float withdraw_total = new_savings.SavingsWithdrawal(float.Parse(txtInputAmount.Text));
+
+                        txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
+                        txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(withdraw_total)}";
+                    }
                 }
-                else if (cmbAccountType.SelectedIndex == 1)
+                else
                 {
-                    double start_saving_bal = new_savings.SavingsBalance;
-                    double withdraw_total = new_savings.SavingsWithdrawal(double.Parse(txtInputAmount.Text));
-
-                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(withdraw_total, 2)}";
+                    txtCycleChanges.Text = string.Empty;
+                    txtCycleChanges.Text = $"Insufficient Funds!";
                 }
             }
             else
-            {
-                MessageBox.Show("Please End your Cycle first!", "Incomplete Changes");
-            }
+                txtCycleChanges.Text = $"No To Amount Withdrew!";
         }
 
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if(txtCycleChanges.Text == string.Empty)
+            if (txtInputAmount.Text != string.Empty)
             {
-                if(cmbAccountType.SelectedIndex == 2)
+                if (new_customer.AccountsLists[2].StartingBalance > 0.0f)
                 {
-                    double start_loan_principle = new_loan.LoanPrinciple;
-                    double payment_total = new_loan.LoanPayments(double.Parse(txtInputAmount.Text));
+                    if (cmbAccountType.SelectedIndex == 2)
+                    {
+                        float start_loan_principle = new_loan.LoanPrinciple;
+                        float payment_total = new_loan.PayLoan(float.Parse(txtInputAmount.Text));
 
-                    txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Round(start_loan_principle, 2)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Round(payment_total, 2)}";
+                        txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
+                        txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Floor(start_loan_principle)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(payment_total)}";
+                    }
                 }
+                else
+                    txtCycleChanges.Text = $"Loan owed is less than payment!";
             }
             else
-            {
-                MessageBox.Show("Please End your Cycle first!", "Incomplete Changes");
-            }
+                txtCycleChanges.Text = $"No Amount To Pay Loan!";
         }
 
         private void btnEndCycle_Click(object sender, RoutedEventArgs e)
@@ -228,6 +244,10 @@ namespace Project05
                 default:
                     throw new Exception();
             }
+        }
+
+        private void txtInputAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
         }
     }
 }
