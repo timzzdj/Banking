@@ -9,10 +9,11 @@ namespace Project05
     internal class Savings : Account
     {
         // Fields
-        private float savings_balance;
-        private float savings_debits;
-        private float savings_credits;
-        private float savings_interest;
+        private float savings_balance;  // The saving's balance
+        private float savings_debits;   // The saving's debits
+        private float savings_credits;  // The saving's credits
+        private float savings_interest; // The saving's interest
+
         // Constructirs
         public Savings() { }
         public Savings(float savings_bal, float savings_deb, float savings_cred, float annual_percent_rate, int acc_num) : base(annual_percent_rate,acc_num)
@@ -42,18 +43,13 @@ namespace Project05
         public override float EndingBalance { get => (savings_balance + savings_credits - savings_debits) * savings_interest; }
         public sealed override string AccountType => $"Savings";
         // Methods
+        /* Deposits an amount given by the user to the account */
         public float SavingsDeposit(float p_amount_deposited)
-        {
-            if (savings_balance > 0.0f)
-            {
-                savings_credits += p_amount_deposited;
-            }
-            else
-            {
-                throw new ArgumentException("Deposit cannot be less than zero!");
-            }
+        {           
+            savings_credits += p_amount_deposited;
             return savings_credits;
         }
+        /* Withdraws an amount given by the user to the account */
         public float SavingsWithdrawal(float p_amount_withdrew)
         {
             if(savings_balance > 0.0f)
@@ -66,6 +62,7 @@ namespace Project05
             }
             return savings_debits;
         }
+        /* Ends the current account's cycle for the month */
         public void SavingsEndCycle()
         {
             savings_balance += (savings_balance + savings_credits - savings_debits) * savings_interest;

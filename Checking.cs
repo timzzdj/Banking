@@ -9,10 +9,11 @@ namespace Project05
     internal class Checking : Account
     {
         // Fields
-        private float checkings_balance;
-        private float checkings_debits;
-        private float checkings_credits;
-        private float checkings_interest;
+        private float checkings_balance;  // The checking's balance
+        private float checkings_debits;   // The checking's debits
+        private float checkings_credits;  // The checking's credits
+        private float checkings_interest; // The checking's interest
+
         // Constructors
         public Checking() { }
         public Checking(float checkings_bal, float checkings_deb, float checkings_cred, float annual_percent_rate, int acc_num) : base(annual_percent_rate, acc_num)
@@ -49,19 +50,15 @@ namespace Project05
         public override float StartingBalance { get => checkings_balance; }
         public override float EndingBalance { get => (checkings_balance + checkings_credits - checkings_debits) * checkings_interest; }
         public sealed override string AccountType => $"Checkings";
+
         // Methods
+        /* Deposits an amount given by the user to the account */
         public float CheckingsDeposit(float p_amount_deposited)
         {
-            if (checkings_balance > 0.0f)
-            {
-                checkings_credits += p_amount_deposited;
-            }
-            else
-            {
-                throw new ArgumentException("Deposit cannot be less than zero!");
-            }
+            checkings_credits += p_amount_deposited;            
             return checkings_credits;
         }
+        /* Withdraws an amount given by the user to the account */
         public float CheckingsWithdrawal(float p_amount_withdrew)
         {
             if (checkings_balance > 0.0f)
@@ -74,7 +71,8 @@ namespace Project05
             }
             
             return checkings_debits;
-        }        
+        }
+        /* Ends the current account's cycle for the month */
         public void CheckingsEndCycle()
         {
             checkings_balance += (checkings_balance + checkings_credits - checkings_debits) * checkings_interest;

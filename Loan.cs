@@ -9,9 +9,9 @@ namespace Project05
     internal class Loan : Account 
     {
         // Fields
-        private float loan_principle;
-        private float loan_payments;
-        private float loan_interest;
+        private float loan_principle; // The loan account's principle owed
+        private float loan_payments;  // The loan account's payment amount
+        private float loan_interest;  // The loan account's interest rate
 
         // Constructors
         public Loan() { }
@@ -27,6 +27,7 @@ namespace Project05
         public override float EndingBalance { get => (loan_principle - loan_payments) * loan_interest; }
         public sealed override string AccountType => $"Loan";
         // Methods
+        /* Pays the principle loan using the amount given by the user */
         public float PayLoan(float p_amount_paid)
         {
             if (loan_principle > 0.0f)
@@ -39,6 +40,7 @@ namespace Project05
             }
             return loan_payments;
         }
+        /* Ends the current account's cycle for the month */
         public void LoanEndCycle()
         {
             loan_principle += (loan_principle - loan_payments) * (loan_interest / 12);

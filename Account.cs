@@ -8,20 +8,18 @@ namespace Project05
 {
     internal abstract class Account
     {
-        // Constants
-
         // Fields
-        private int account_number = 137243;
-        //private string account_type;
-        private float annual_percent_yield;
+        private int account_number = 137243; // The account number
+        private float annual_percent_yield;  // The annual rate return from compounding interest
 
-        // Constructor
+        // Constructor Default/non-default
         protected Account() { }
         protected Account(float annual_percent_rate, int acc_num)
         {
             account_number = acc_num;
             annual_percent_yield = annual_percent_rate;
         }
+        // Properties
         public int AccountNumber
         {
             get => account_number;            
@@ -36,6 +34,7 @@ namespace Project05
         {
             get => "Bank Account";
         }
+        // Methods
         public override string ToString()
         {
             return $"\t--Account Information--\nAccount Number: {account_number}";

@@ -9,9 +9,9 @@ namespace Project05
     internal class Retirement : Account 
     {
         // Fields
-        private float retirement_balance;
-        private float retirement_deposits;
-        private float retirement_interest;
+        private float retirement_balance;  // The retirement account's balance
+        private float retirement_deposits; // The retirement account's deposits
+        private float retirement_interest; // The retirement account's interest rate
 
         // Constructors
         public Retirement() { }
@@ -27,18 +27,13 @@ namespace Project05
         public override float EndingBalance { get => (retirement_deposits + retirement_balance) * retirement_interest; }
         public sealed override string AccountType => $"Retirement";
         //Methods
+        /* Deposits an amount given by the user to the account */
         public float RetirementDeposit(float p_amount_deposited)
         {
-            if (retirement_balance > 0.0f)
-            {
-                retirement_balance += p_amount_deposited;
-            }
-            else
-            {
-                throw new ArgumentException("Deposit cannot be less than zero!");
-            }
+            retirement_balance += p_amount_deposited;
             return retirement_balance;
         }
+        /* Ends the current account's cycle for the month */
         public void RetirementEndCycle()
         {
             retirement_balance += (retirement_deposits + retirement_balance) * retirement_interest;

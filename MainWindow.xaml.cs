@@ -28,47 +28,78 @@ namespace Project05
     /// </summary>
     public partial class MainWindow : Window
     {
+        /**********************************************************************************/
+        /*            Define and Instatiate the Bank, Customers, and Accounts             */
+        /**********************************************************************************/
+        #region
+        // Create a New Bank
         Bank new_bank = new Bank("Ruptcy", "888 Pigeons Blvd. Pensacola, FL", 0987654321);
+
+        // Create a new customer
         Customer new_customer = new Customer("Timothy de Jesus", "250 Brent Ln. Pensacola, FL", "+1 (234)-567-8901");
+
+        // Create accounts of each type 
         Checking new_checkings;
         Savings new_savings;
         Loan new_loan;
         Retirement new_retirement;
+        #endregion
         public MainWindow()
         {
             InitializeComponent();
+            // Set the buttons to its initilized state
+            loadButtons();
+
+            // Load the Bank Details
+            txtBankDetails.Text = new_bank.ToString();
+
+            // Add the customer information to the Bank
+            new_bank.AddCustomer(new_customer);
+
+            // Setup the customer's accounts
+            new_checkings = new Checking(0.0f, 0.0f, 0.0f, 0.01f, 137243);
+            new_savings = new Savings(0.0f, 0.0f, 0.0f, 0.05f, 137243);
+            new_loan = new Loan(1000000.0f, 0.0f, 0.01f, 137243);
+            new_retirement = new Retirement(0.0f, 0.0f, 0.5f, 137243);
+
+            // Save and Add the customer account's information
+            new_customer.AddAccount(new_checkings);
+            new_customer.AddAccount(new_savings);
+            new_customer.AddAccount(new_loan);
+            new_customer.AddAccount(new_retirement);
+
+            // Load the customer and account lists that has been created
+            loadCustomerLists();
+            loadAccountLists();
+        }
+        /**********************************************************************************/
+        /*                         Pre-loaded items in the GUI                            */
+        /**********************************************************************************/
+        #region
+        /**********************************************************************************/
+        /*                          Disable the buttons on startup                        */
+        /**********************************************************************************/
+        public void loadButtons()
+        {
             txtInputAmount.IsEnabled = false;
             btnDeposit.IsEnabled = false;
             btnWithdraw.IsEnabled = false;
             btnPay.IsEnabled = false;
             btnEndCycle.IsEnabled = false;
-            // Load the Bank Details
-            txtBankDetails.Text = new_bank.ToString();
-            new_bank.AddCustomer(new_customer);
-            // Load the first customer details
-            new_checkings = new Checking(0.0f, 0.0f, 0.0f, 0.01f, 137243);
-            new_savings = new Savings(0.0f, 0.0f, 0.0f, 0.05f, 137243);
-            new_loan = new Loan(1000000.0f, 0.0f, 0.01f, 137243);
-            new_retirement = new Retirement(0.0f, 0.0f, 0.5f, 137243);
-            //new_savings
-            // Load first customer's accounts
-            new_customer.AddAccount(new_checkings);
-            new_customer.AddAccount(new_savings);
-            new_customer.AddAccount(new_loan);
-            new_customer.AddAccount(new_retirement);
-            // Add the first customers to the Bank
-            loadCustomerLists();
-            loadAccountLists();
-            
         }
+        /**********************************************************************************/
+        /*                Get the customers and list them in the combobox                 */
+        /**********************************************************************************/
         public void loadCustomerLists()
         {
-            // List each customer in a dropdown list
             for (int x = 0; x < new_bank.CustomerLists.Count; x++)
             {
                 cmbCustomerList.Items.Add(new_bank.CustomerLists[x].CustomerName);
             }
         }
+        /**********************************************************************************/
+        /*                  Get the accounts and list them in the combobox                */
+        /**********************************************************************************/
         public void loadAccountLists()
         {
             foreach (Account accounts in new_customer.AccountsLists)
@@ -76,6 +107,14 @@ namespace Project05
                 cmbAccountType.Items.Add(accounts.AccountType);
             }
         }
+        #endregion
+        /**********************************************************************************/
+        /*                         Item Selection Event Commands                          */
+        /**********************************************************************************/
+        #region
+        /**********************************************************************************/
+        /*            Display the customer information when context switching             */
+        /**********************************************************************************/
         private void cmbCustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(cmbCustomerList.SelectedIndex == 0)
@@ -84,7 +123,9 @@ namespace Project05
                 cmbAccountType.IsEnabled = cmbCustomerList.SelectedIndex > -1;
             }
         }
-
+        /**********************************************************************************/
+        /*         Display the customer account information when context switching        */
+        /**********************************************************************************/
         private void cmbAccountType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if(cmbAccountType.SelectedIndex > -1)
@@ -126,49 +167,68 @@ namespace Project05
                     }
                     txtInputAmount.IsEnabled = true;
                 }
-                else 
+                else
+                {                    
                     MessageBox.Show("Please End Your Cycle First!", "Incomplete changes!");
+                }
             }            
         }
-
+        #endregion
+        /**********************************************************************************/
+        /*     Deposit, Withdraw, Make Payment, and End Cycle Button Funcitonalities      */
+        /**********************************************************************************/
+        #region
+        /**********************************************************************************/
+        /*        Deposit the amount from the user to the current account selected        */
+        /**********************************************************************************/
         private void btnDeposit_Click(object sender, RoutedEventArgs e)
         {
-            if (txtInputAmount.Text != string.Empty)
+            try
             {
-                if (cmbAccountType.SelectedIndex == 0)
+                if (txtInputAmount.Text != string.Empty)
                 {
-                    float start_checking_bal = new_checkings.CheckingsBalance;
-                    float deposit_total = new_checkings.CheckingsDeposit(float.Parse(txtInputAmount.Text));
+                    if (cmbAccountType.SelectedIndex == 0)
+                    {
+                        float start_checking_bal = new_checkings.CheckingsBalance;
+                        float deposit_total = new_checkings.CheckingsDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
-                    txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
-                }
-                else if (cmbAccountType.SelectedIndex == 1)
-                {
-                    float start_saving_bal = new_savings.SavingsBalance;
-                    float deposit_total = new_savings.SavingsDeposit(float.Parse(txtInputAmount.Text));
+                        txtAccountDetails.Text = new_customer.AccountsLists[0].ToString();
+                        txtCycleChanges.Text = $"Checkings Balance: ${Math.Floor(start_checking_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
+                    }
+                    else if (cmbAccountType.SelectedIndex == 1)
+                    {
+                        float start_saving_bal = new_savings.SavingsBalance;
+                        float deposit_total = new_savings.SavingsDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
-                    txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
-                }
-                else if (cmbAccountType.SelectedIndex == 3)
-                {
-                    float start_retire_bal = new_retirement.RetirementBalance;
-                    float deposit_total = new_retirement.RetirementDeposit(float.Parse(txtInputAmount.Text));
+                        txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
+                        txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
+                    }
+                    else if (cmbAccountType.SelectedIndex == 3)
+                    {
+                        float start_retire_bal = new_retirement.RetirementBalance;
+                        float deposit_total = new_retirement.RetirementDeposit(float.Parse(txtInputAmount.Text));
 
-                    txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
-                    txtCycleChanges.Text = $"Retirement Balance:${Math.Floor(start_retire_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
+                        txtAccountDetails.Text = new_customer.AccountsLists[3].ToString();
+                        txtCycleChanges.Text = $"Retirement Balance:${Math.Floor(start_retire_bal)}\n\t\t  +\nDeposited Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(deposit_total)}";
+                    }
                 }
+                else
+                    txtCycleChanges.Text = $"No Amount To Deposit!";
             }
-            else
-                txtCycleChanges.Text = $"No Amount To Deposit!";
+            catch(FormatException fEx)
+            {
+                MessageBox.Show("Cannot Enter Letters/Symbols as Amount!", "Format Invalid!");
+                txtInputAmount.Text = string.Empty;
+            }
         }
-
+        /**********************************************************************************/
+        /*        Withdraw the amount from the user to the current account selected       */
+        /**********************************************************************************/
         private void btnWithdraw_Click(object sender, RoutedEventArgs e)
         {
-            if (txtInputAmount.Text != string.Empty)
+            try
             {
-                if (new_customer.AccountsLists[cmbAccountType.SelectedIndex].StartingBalance > 0.0f)
+                if (txtInputAmount.Text != string.Empty)
                 {
                     if (cmbAccountType.SelectedIndex == 0)
                     {
@@ -185,23 +245,25 @@ namespace Project05
 
                         txtAccountDetails.Text = new_customer.AccountsLists[1].ToString();
                         txtCycleChanges.Text = $"Savings Balance:\t   ${Math.Floor(start_saving_bal)}\n\t\t  -\nWithdraw Amount: ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(withdraw_total)}";
-                    }
+                    }                    
                 }
                 else
-                {
-                    txtCycleChanges.Text = string.Empty;
-                    txtCycleChanges.Text = $"Insufficient Funds!";
-                }
+                    txtCycleChanges.Text = $"No Amount To Withdraw!";
             }
-            else
-                txtCycleChanges.Text = $"No To Amount Withdrew!";
+            catch(FormatException fEx)
+            {
+                MessageBox.Show("Cannot Enter Letters/Symbols as Amount!", "Format Invalid!");
+                txtInputAmount.Text = string.Empty;
+            }
         }
-
+        /**********************************************************************************/
+        /*                           Make a payment for the loan owed                     */
+        /**********************************************************************************/
         private void btnPay_Click(object sender, RoutedEventArgs e)
         {
-            if (txtInputAmount.Text != string.Empty)
+            try
             {
-                if (new_customer.AccountsLists[2].StartingBalance > 0.0f)
+                if (txtInputAmount.Text != string.Empty)
                 {
                     if (cmbAccountType.SelectedIndex == 2)
                     {
@@ -210,15 +272,20 @@ namespace Project05
 
                         txtAccountDetails.Text = new_customer.AccountsLists[2].ToString();
                         txtCycleChanges.Text = $"Loan Principle:\t  ${Math.Floor(start_loan_principle)}\n\t\t  -\nAmount Paid:\t  ${txtInputAmount.Text}\nTotal Amount:\t   ${Math.Floor(payment_total)}";
-                    }
+                    }                    
                 }
                 else
-                    txtCycleChanges.Text = $"Loan owed is less than payment!";
+                    txtCycleChanges.Text = $"No Amount To Pay Loan!";
             }
-            else
-                txtCycleChanges.Text = $"No Amount To Pay Loan!";
+            catch(FormatException fEx)
+            {
+                MessageBox.Show("Cannot Enter Letters/Symbols as Amount!", "Format Invalid!");
+                txtInputAmount.Text = string.Empty;
+            }
         }
-
+        /**********************************************************************************/
+        /*          End the monthly cycle and commit changes made to the account          */
+        /**********************************************************************************/
         private void btnEndCycle_Click(object sender, RoutedEventArgs e)
         {           
             txtCycleChanges.Text = string.Empty;
@@ -245,9 +312,6 @@ namespace Project05
                     throw new Exception();
             }
         }
-
-        private void txtInputAmount_TextChanged(object sender, TextChangedEventArgs e)
-        {
-        }
+        #endregion
     }
 }
