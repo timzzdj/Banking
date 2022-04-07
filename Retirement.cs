@@ -30,7 +30,14 @@ namespace Project05
         /* Deposits an amount given by the user to the account */
         public float RetirementDeposit(float p_amount_deposited)
         {
-            retirement_balance += p_amount_deposited;
+            if(retirement_balance >= -1.0f)
+            {
+                retirement_balance += p_amount_deposited;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Funds!");
+            }
             return retirement_balance;
         }
         /* Ends the current account's cycle for the month */

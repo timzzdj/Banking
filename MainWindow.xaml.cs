@@ -222,7 +222,7 @@ namespace Project05
             }
         }
         /**********************************************************************************/
-        /*        Withdraw the amount from the user to the current account selected       */
+        /*              Withdraw the amount from the current account selected             */
         /**********************************************************************************/
         private void btnWithdraw_Click(object sender, RoutedEventArgs e)
         {
@@ -313,5 +313,10 @@ namespace Project05
             }
         }
         #endregion
+
+        private void txtInputAmount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

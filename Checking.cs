@@ -55,13 +55,20 @@ namespace Project05
         /* Deposits an amount given by the user to the account */
         public float CheckingsDeposit(float p_amount_deposited)
         {
-            checkings_credits += p_amount_deposited;            
+            if (checkings_credits >= -1.0f)
+            {
+                checkings_credits += p_amount_deposited;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Funds!");
+            }
             return checkings_credits;
         }
         /* Withdraws an amount given by the user to the account */
         public float CheckingsWithdrawal(float p_amount_withdrew)
         {
-            if (checkings_balance > 0.0f)
+            if (checkings_balance >= 0.0f)
             {
                 checkings_debits += p_amount_withdrew;
             }

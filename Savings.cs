@@ -45,14 +45,21 @@ namespace Project05
         // Methods
         /* Deposits an amount given by the user to the account */
         public float SavingsDeposit(float p_amount_deposited)
-        {           
-            savings_credits += p_amount_deposited;
+        {
+            if (savings_credits >= -1.0f)
+            {
+                savings_credits += p_amount_deposited;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid Funds!");
+            }
             return savings_credits;
         }
         /* Withdraws an amount given by the user to the account */
         public float SavingsWithdrawal(float p_amount_withdrew)
         {
-            if(savings_balance > 0.0f)
+            if(savings_balance >= 0.0f)
             {
                 savings_debits += p_amount_withdrew;
             }         

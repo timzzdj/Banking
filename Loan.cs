@@ -30,7 +30,7 @@ namespace Project05
         /* Pays the principle loan using the amount given by the user */
         public float PayLoan(float p_amount_paid)
         {
-            if (loan_principle > 0.0f)
+            if (loan_payments >= -1.0f)
             {
                 loan_payments += p_amount_paid;
             }
